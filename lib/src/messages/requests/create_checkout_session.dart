@@ -245,9 +245,12 @@ class PaymentIntentData {
   final String? receiptEmail;
   final SetupFutureUsage? setupFutureUsage;
 
+  final int? applicationFeeAmount;
+
   PaymentIntentData({
     this.receiptEmail,
     this.setupFutureUsage,
+    this.applicationFeeAmount,
   });
 
   factory PaymentIntentData.fromJson(Map<String, dynamic> json) =>
@@ -272,10 +275,13 @@ class SubscriptionData {
   /// All keys can be unset by posting an empty value to metadata.
   final Map<String, dynamic>? metadata;
 
+  final double? applicationFeePercent;
+
   SubscriptionData({
     this.trialEnd,
     this.trialPeriodDays,
     this.metadata,
+    this.applicationFeePercent,
   });
 
   factory SubscriptionData.fromJson(Map<String, dynamic> json) =>

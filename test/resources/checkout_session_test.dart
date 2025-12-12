@@ -23,7 +23,7 @@ void main() {
         cancelUrl: 'https://cancel',
         paymentMethodTypes: [
           PaymentMethodType.card,
-          PaymentMethodType.afterpay_clearpay
+          PaymentMethodType.afterpay_clearpay,
         ],
         customer: 'cus_JBeWftkPvAhbsN',
         lineItems: [
@@ -31,32 +31,41 @@ void main() {
             price: 'price_2234234',
             quantity: 1,
             images: ['http://imagefoobar'],
-          )
+          ),
         ],
-        subscriptionData: SubscriptionData(trialPeriodDays: 3),
+        subscriptionData: SubscriptionData(
+          trialPeriodDays: 3,
+          applicationFeePercent: 0,
+        ),
       );
 
-      expect(request.toJson()['payment_method_types'],
-          ['card', 'afterpay_clearpay']);
+      expect(request.toJson()['payment_method_types'], [
+        'card',
+        'afterpay_clearpay',
+      ]);
       expect(request.toJson()['subscription_data'], {'trial_period_days': 3});
 
-      client.dio.interceptors.add(InterceptorsWrapper(
-        onRequest: (options, handler) {
-          expect(options.data, request.toJson());
-          handler.resolve(
-            Response(
-              requestOptions: options,
-              data: jsonDecode(createSessionResponse),
-              statusCode: HttpStatus.ok,
-            ),
-          );
-        },
-      ));
+      client.dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            expect(options.data, request.toJson());
+            handler.resolve(
+              Response(
+                requestOptions: options,
+                data: jsonDecode(createSessionResponse),
+                statusCode: HttpStatus.ok,
+              ),
+            );
+          },
+        ),
+      );
 
       final response = await checkoutSessionResource.create(request);
 
-      expect(response.id,
-          'cs_test_TkmJFX7eEMan6f0W3q5n21sRgRraVzKf0BPTTmb0kn9yPBT9lr0ZJBVy');
+      expect(
+        response.id,
+        'cs_test_TkmJFX7eEMan6f0W3q5n21sRgRraVzKf0BPTTmb0kn9yPBT9lr0ZJBVy',
+      );
       expect(response.paymentMethodTypes, [PaymentMethodType.card]);
     });
   });
