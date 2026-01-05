@@ -15,6 +15,7 @@ import 'src/resources/refund.dart';
 import 'src/resources/subscription.dart';
 
 export 'messages.dart';
+export 'src/client.dart';
 export 'src/webhook.dart';
 
 /// [Stripe] is the Class that provides the Interface for external calls via the
@@ -61,8 +62,8 @@ class Stripe {
   /// https://stripe.com/docs/api/balance_transactions
   final BalanceTransactionResource balanceTransaction;
 
-  factory Stripe(String apiKey) {
-    final client = Client(apiKey: apiKey);
+  factory Stripe(String apiKey, {String? stripeAccount}) {
+    final client = Client(apiKey: apiKey, stripeAccount: stripeAccount);
     return Stripe.withClient(client);
   }
 
