@@ -14,14 +14,16 @@ const _defaultVersion = '2020-08-27';
 class Client {
   final String version;
   final String apiKey;
+  final String? stripeAccount;
 
   /// Creates a [Dio] client that will make requests to [baseUrl].
   factory Client({
     required String apiKey,
     String baseUrl = _defaultUrl,
     String version = _defaultVersion,
+    String? stripeAccount,
   }) =>
-      Client.withDio(Dio(), baseUrl: baseUrl, version: version, apiKey: apiKey);
+      Client.withDio(Dio(), baseUrl: baseUrl, version: version, apiKey: apiKey, stripeAccount: stripeAccount);
 
   @visibleForTesting
   Client.withDio(
@@ -29,17 +31,25 @@ class Client {
     required this.apiKey,
     String baseUrl = _defaultUrl,
     this.version = _defaultVersion,
+    this.stripeAccount,
   }) {
     dio.transformer = FormDataTransformer();
+    final headers = {
+      'Authorization': 'Basic ${base64Encode(utf8.encode('$apiKey:'))}',
+      'Stripe-Version': version,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+
+    // Add Stripe-Account header for Connect if provided
+    if (stripeAccount != null) {
+      headers['Stripe-Account'] = stripeAccount!;
+    }
+
     dio.options
       ..baseUrl = baseUrl
       ..responseType = ResponseType.json
       ..contentType = 'application/x-www-form-urlencoded'
-      ..headers = {
-        'Authorization': 'Basic ${base64Encode(utf8.encode('$apiKey:'))}',
-        'Stripe-Version': version,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      };
+      ..headers = headers;
   }
 
   /// The actual [Dio] instance that makes the request. You shouldn't need to
