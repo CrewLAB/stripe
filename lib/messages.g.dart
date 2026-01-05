@@ -864,6 +864,7 @@ CreatePriceRequest _$CreatePriceRequestFromJson(Map<String, dynamic> json) =>
       recurring: PriceRecurring.fromJson(
         json['recurring'] as Map<String, dynamic>,
       ),
+      nickname: json['nickname'] as String?,
     );
 
 Map<String, dynamic> _$CreatePriceRequestToJson(CreatePriceRequest instance) =>
@@ -872,6 +873,7 @@ Map<String, dynamic> _$CreatePriceRequestToJson(CreatePriceRequest instance) =>
       'unit_amount': instance.unitAmount,
       'currency': instance.currency,
       'recurring': instance.recurring.toJson(),
+      'nickname': ?instance.nickname,
     };
 
 CreateRefundRequest _$CreateRefundRequestFromJson(Map<String, dynamic> json) =>
