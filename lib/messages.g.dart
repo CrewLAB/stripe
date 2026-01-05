@@ -461,6 +461,34 @@ Map<String, dynamic> _$PortalSessionToJson(PortalSession instance) =>
       'url': instance.url,
     };
 
+PriceRecurring _$PriceRecurringFromJson(Map<String, dynamic> json) =>
+    PriceRecurring(
+      interval: $enumDecode(_$RecurringIntervalEnumMap, json['interval']),
+      intervalCount: (json['interval_count'] as num).toInt(),
+      trialPeriodDays: (json['trial_period_days'] as num?)?.toInt(),
+      usageType: $enumDecode(_$UsageTypeEnumMap, json['usage_type']),
+    );
+
+Map<String, dynamic> _$PriceRecurringToJson(PriceRecurring instance) =>
+    <String, dynamic>{
+      'interval': _$RecurringIntervalEnumMap[instance.interval]!,
+      'interval_count': instance.intervalCount,
+      'trial_period_days': ?instance.trialPeriodDays,
+      'usage_type': _$UsageTypeEnumMap[instance.usageType]!,
+    };
+
+const _$RecurringIntervalEnumMap = {
+  RecurringInterval.day: 'day',
+  RecurringInterval.week: 'week',
+  RecurringInterval.month: 'month',
+  RecurringInterval.year: 'year',
+};
+
+const _$UsageTypeEnumMap = {
+  UsageType.licensed: 'licensed',
+  UsageType.metered: 'metered',
+};
+
 Price _$PriceFromJson(Map<String, dynamic> json) => Price(
   object: $enumDecode(_$_PriceObjectEnumMap, json['object']),
   id: json['id'] as String,
@@ -469,6 +497,10 @@ Price _$PriceFromJson(Map<String, dynamic> json) => Price(
   product: json['product'] as String,
   type: $enumDecode(_$PriceTypeEnumMap, json['type']),
   unitAmount: (json['unit_amount'] as num).toInt(),
+  nickname: json['nickname'] as String?,
+  recurring: json['recurring'] == null
+      ? null
+      : PriceRecurring.fromJson(json['recurring'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$PriceToJson(Price instance) => <String, dynamic>{
@@ -479,6 +511,8 @@ Map<String, dynamic> _$PriceToJson(Price instance) => <String, dynamic>{
   'product': instance.product,
   'type': _$PriceTypeEnumMap[instance.type]!,
   'unit_amount': instance.unitAmount,
+  'nickname': ?instance.nickname,
+  'recurring': ?instance.recurring?.toJson(),
 };
 
 const _$_PriceObjectEnumMap = {_PriceObject.price: 'price'};
@@ -492,18 +526,22 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
   object: $enumDecode(_$_ProductObjectEnumMap, json['object']),
   id: json['id'] as String,
   active: json['active'] as bool,
+  created: (json['created'] as num).toInt(),
+  defaultPrice: json['default_price'] as String?,
   description: json['description'] as String?,
-  metadata: json['metadata'] as Map<String, dynamic>?,
   name: json['name'] as String,
+  updated: (json['updated'] as num).toInt(),
 );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
   'object': _$_ProductObjectEnumMap[instance.object]!,
   'id': instance.id,
   'active': instance.active,
+  'created': instance.created,
+  'default_price': ?instance.defaultPrice,
   'description': ?instance.description,
-  'metadata': ?instance.metadata,
   'name': instance.name,
+  'updated': instance.updated,
 };
 
 const _$_ProductObjectEnumMap = {_ProductObject.product: 'product'};
@@ -835,25 +873,6 @@ Map<String, dynamic> _$CreatePriceRequestToJson(CreatePriceRequest instance) =>
       'currency': instance.currency,
       'recurring': instance.recurring.toJson(),
     };
-
-PriceRecurring _$PriceRecurringFromJson(Map<String, dynamic> json) =>
-    PriceRecurring(
-      interval: $enumDecode(_$RecurringIntervalEnumMap, json['interval']),
-      intervalCount: (json['interval_count'] as num).toInt(),
-    );
-
-Map<String, dynamic> _$PriceRecurringToJson(PriceRecurring instance) =>
-    <String, dynamic>{
-      'interval': _$RecurringIntervalEnumMap[instance.interval]!,
-      'interval_count': instance.intervalCount,
-    };
-
-const _$RecurringIntervalEnumMap = {
-  RecurringInterval.day: 'day',
-  RecurringInterval.week: 'week',
-  RecurringInterval.month: 'month',
-  RecurringInterval.year: 'year',
-};
 
 CreateRefundRequest _$CreateRefundRequestFromJson(Map<String, dynamic> json) =>
     CreateRefundRequest(
