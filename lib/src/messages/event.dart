@@ -33,6 +33,8 @@ abstract class Event<T extends Message> extends Message {
         return CheckoutSessionEvent.fromJson(json) as T;
       case 'customer':
         return CustomerEvent.fromJson(json) as T;
+      case 'invoice':
+        return InvoiceEvent.fromJson(json) as T;
       case 'payment_intent':
         return PaymentIntentEvent.fromJson(json) as T;
       // case 'portal_session'     :

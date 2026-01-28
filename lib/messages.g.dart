@@ -336,6 +336,520 @@ Map<String, dynamic> _$CheckoutSessionEventToJson(
   'type': instance.type,
 };
 
+InvoiceAutomaticTax _$InvoiceAutomaticTaxFromJson(Map<String, dynamic> json) =>
+    InvoiceAutomaticTax(
+      enabled: json['enabled'] as bool,
+      liability: json['liability'] == null
+          ? null
+          : InvoiceTaxLiability.fromJson(
+              json['liability'] as Map<String, dynamic>,
+            ),
+      provider: json['provider'] as String?,
+      status: $enumDecodeNullable(_$AutomaticTaxStatusEnumMap, json['status']),
+      disabledReason: $enumDecodeNullable(
+        _$AutomaticTaxDisabledReasonEnumMap,
+        json['disabled_reason'],
+      ),
+    );
+
+Map<String, dynamic> _$InvoiceAutomaticTaxToJson(
+  InvoiceAutomaticTax instance,
+) => <String, dynamic>{
+  'enabled': instance.enabled,
+  'liability': ?instance.liability?.toJson(),
+  'provider': ?instance.provider,
+  'status': ?_$AutomaticTaxStatusEnumMap[instance.status],
+  'disabled_reason':
+      ?_$AutomaticTaxDisabledReasonEnumMap[instance.disabledReason],
+};
+
+const _$AutomaticTaxStatusEnumMap = {
+  AutomaticTaxStatus.complete: 'complete',
+  AutomaticTaxStatus.failed: 'failed',
+  AutomaticTaxStatus.requires_location_inputs: 'requires_location_inputs',
+};
+
+const _$AutomaticTaxDisabledReasonEnumMap = {
+  AutomaticTaxDisabledReason.finalization_requires_location_inputs:
+      'finalization_requires_location_inputs',
+  AutomaticTaxDisabledReason.finalization_system_error:
+      'finalization_system_error',
+};
+
+InvoiceTaxLiability _$InvoiceTaxLiabilityFromJson(Map<String, dynamic> json) =>
+    InvoiceTaxLiability(
+      account: json['account'] as String?,
+      type: $enumDecode(_$IssuerTypeEnumMap, json['type']),
+    );
+
+Map<String, dynamic> _$InvoiceTaxLiabilityToJson(
+  InvoiceTaxLiability instance,
+) => <String, dynamic>{
+  'account': ?instance.account,
+  'type': _$IssuerTypeEnumMap[instance.type]!,
+};
+
+const _$IssuerTypeEnumMap = {
+  IssuerType.account: 'account',
+  IssuerType.self: 'self',
+};
+
+InvoiceStatusTransitions _$InvoiceStatusTransitionsFromJson(
+  Map<String, dynamic> json,
+) => InvoiceStatusTransitions(
+  finalizedAt: _$JsonConverterFromJson<int, DateTime>(
+    json['finalized_at'],
+    const TimestampConverter().fromJson,
+  ),
+  markedUncollectibleAt: _$JsonConverterFromJson<int, DateTime>(
+    json['marked_uncollectible_at'],
+    const TimestampConverter().fromJson,
+  ),
+  paidAt: _$JsonConverterFromJson<int, DateTime>(
+    json['paid_at'],
+    const TimestampConverter().fromJson,
+  ),
+  voidedAt: _$JsonConverterFromJson<int, DateTime>(
+    json['voided_at'],
+    const TimestampConverter().fromJson,
+  ),
+);
+
+Map<String, dynamic> _$InvoiceStatusTransitionsToJson(
+  InvoiceStatusTransitions instance,
+) => <String, dynamic>{
+  'finalized_at': ?_$JsonConverterToJson<int, DateTime>(
+    instance.finalizedAt,
+    const TimestampConverter().toJson,
+  ),
+  'marked_uncollectible_at': ?_$JsonConverterToJson<int, DateTime>(
+    instance.markedUncollectibleAt,
+    const TimestampConverter().toJson,
+  ),
+  'paid_at': ?_$JsonConverterToJson<int, DateTime>(
+    instance.paidAt,
+    const TimestampConverter().toJson,
+  ),
+  'voided_at': ?_$JsonConverterToJson<int, DateTime>(
+    instance.voidedAt,
+    const TimestampConverter().toJson,
+  ),
+};
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) => json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) => value == null ? null : toJson(value);
+
+InvoiceIssuer _$InvoiceIssuerFromJson(Map<String, dynamic> json) =>
+    InvoiceIssuer(
+      account: json['account'] as String?,
+      type: $enumDecode(_$IssuerTypeEnumMap, json['type']),
+    );
+
+Map<String, dynamic> _$InvoiceIssuerToJson(InvoiceIssuer instance) =>
+    <String, dynamic>{
+      'account': ?instance.account,
+      'type': _$IssuerTypeEnumMap[instance.type]!,
+    };
+
+InvoiceCustomerShipping _$InvoiceCustomerShippingFromJson(
+  Map<String, dynamic> json,
+) => InvoiceCustomerShipping(
+  address: json['address'] == null
+      ? null
+      : Address.fromJson(json['address'] as Map<String, dynamic>),
+  name: json['name'] as String,
+  phone: json['phone'] as String?,
+);
+
+Map<String, dynamic> _$InvoiceCustomerShippingToJson(
+  InvoiceCustomerShipping instance,
+) => <String, dynamic>{
+  'address': ?instance.address?.toJson(),
+  'name': instance.name,
+  'phone': ?instance.phone,
+};
+
+InvoiceLineItemPeriod _$InvoiceLineItemPeriodFromJson(
+  Map<String, dynamic> json,
+) => InvoiceLineItemPeriod(
+  end: const TimestampConverter().fromJson((json['end'] as num).toInt()),
+  start: const TimestampConverter().fromJson((json['start'] as num).toInt()),
+);
+
+Map<String, dynamic> _$InvoiceLineItemPeriodToJson(
+  InvoiceLineItemPeriod instance,
+) => <String, dynamic>{
+  'end': const TimestampConverter().toJson(instance.end),
+  'start': const TimestampConverter().toJson(instance.start),
+};
+
+InvoiceLineItemPricing _$InvoiceLineItemPricingFromJson(
+  Map<String, dynamic> json,
+) => InvoiceLineItemPricing(
+  price: json['price'] as String?,
+  product: json['product'] as String?,
+  type: json['type'] as String?,
+  unitAmountDecimal: json['unit_amount_decimal'] as String?,
+);
+
+Map<String, dynamic> _$InvoiceLineItemPricingToJson(
+  InvoiceLineItemPricing instance,
+) => <String, dynamic>{
+  'price': ?instance.price,
+  'product': ?instance.product,
+  'type': ?instance.type,
+  'unit_amount_decimal': ?instance.unitAmountDecimal,
+};
+
+InvoiceLineItemPriceDetails _$InvoiceLineItemPriceDetailsFromJson(
+  Map<String, dynamic> json,
+) => InvoiceLineItemPriceDetails(
+  price: json['price'] as String,
+  product: json['product'] as String,
+);
+
+Map<String, dynamic> _$InvoiceLineItemPriceDetailsToJson(
+  InvoiceLineItemPriceDetails instance,
+) => <String, dynamic>{'price': instance.price, 'product': instance.product};
+
+InvoiceLineItem _$InvoiceLineItemFromJson(Map<String, dynamic> json) =>
+    InvoiceLineItem(
+      object: $enumDecode(_$_InvoiceLineItemObjectEnumMap, json['object']),
+      id: json['id'] as String,
+      amount: (json['amount'] as num).toInt(),
+      currency: json['currency'] as String,
+      description: json['description'] as String?,
+      discountable: json['discountable'] as bool,
+      invoice: json['invoice'] as String?,
+      livemode: json['livemode'] as bool,
+      metadata: json['metadata'] as Map<String, dynamic>?,
+      period: InvoiceLineItemPeriod.fromJson(
+        json['period'] as Map<String, dynamic>,
+      ),
+      price: json['price'] == null
+          ? null
+          : Price.fromJson(json['price'] as Map<String, dynamic>),
+      pricing: json['pricing'] == null
+          ? null
+          : InvoiceLineItemPricing.fromJson(
+              json['pricing'] as Map<String, dynamic>,
+            ),
+      quantity: (json['quantity'] as num?)?.toInt(),
+      subtotal: (json['subtotal'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$InvoiceLineItemToJson(InvoiceLineItem instance) =>
+    <String, dynamic>{
+      'object': _$_InvoiceLineItemObjectEnumMap[instance.object]!,
+      'id': instance.id,
+      'amount': instance.amount,
+      'currency': instance.currency,
+      'description': ?instance.description,
+      'discountable': instance.discountable,
+      'invoice': ?instance.invoice,
+      'livemode': instance.livemode,
+      'metadata': ?instance.metadata,
+      'period': instance.period.toJson(),
+      'price': ?instance.price?.toJson(),
+      'pricing': ?instance.pricing?.toJson(),
+      'quantity': ?instance.quantity,
+      'subtotal': instance.subtotal,
+    };
+
+const _$_InvoiceLineItemObjectEnumMap = {
+  _InvoiceLineItemObject.line_item: 'line_item',
+};
+
+InvoiceCustomField _$InvoiceCustomFieldFromJson(Map<String, dynamic> json) =>
+    InvoiceCustomField(
+      name: json['name'] as String,
+      value: json['value'] as String,
+    );
+
+Map<String, dynamic> _$InvoiceCustomFieldToJson(InvoiceCustomField instance) =>
+    <String, dynamic>{'name': instance.name, 'value': instance.value};
+
+InvoicePaymentSettings _$InvoicePaymentSettingsFromJson(
+  Map<String, dynamic> json,
+) => InvoicePaymentSettings(
+  defaultMandate: json['default_mandate'] as String?,
+  paymentMethodOptions: json['payment_method_options'] as Map<String, dynamic>?,
+  paymentMethodTypes: (json['payment_method_types'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+);
+
+Map<String, dynamic> _$InvoicePaymentSettingsToJson(
+  InvoicePaymentSettings instance,
+) => <String, dynamic>{
+  'default_mandate': ?instance.defaultMandate,
+  'payment_method_options': ?instance.paymentMethodOptions,
+  'payment_method_types': ?instance.paymentMethodTypes,
+};
+
+Invoice _$InvoiceFromJson(Map<String, dynamic> json) => Invoice(
+  object: $enumDecode(_$_InvoiceObjectEnumMap, json['object']),
+  id: json['id'] as String,
+  accountCountry: json['account_country'] as String?,
+  accountName: json['account_name'] as String?,
+  accountTaxIds: (json['account_tax_ids'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  amountDue: (json['amount_due'] as num).toInt(),
+  amountOverpaid: (json['amount_overpaid'] as num).toInt(),
+  amountPaid: (json['amount_paid'] as num).toInt(),
+  amountRemaining: (json['amount_remaining'] as num).toInt(),
+  amountShipping: (json['amount_shipping'] as num).toInt(),
+  application: json['application'] as String?,
+  attemptCount: (json['attempt_count'] as num).toInt(),
+  attempted: json['attempted'] as bool,
+  autoAdvance: json['auto_advance'] as bool,
+  automaticTax: InvoiceAutomaticTax.fromJson(
+    json['automatic_tax'] as Map<String, dynamic>,
+  ),
+  automaticallyFinalizesAt: _$JsonConverterFromJson<int, DateTime>(
+    json['automatically_finalizes_at'],
+    const TimestampConverter().fromJson,
+  ),
+  billingReason: $enumDecodeNullable(
+    _$InvoiceBillingReasonEnumMap,
+    json['billing_reason'],
+  ),
+  collectionMethod: $enumDecode(
+    _$InvoiceCollectionMethodEnumMap,
+    json['collection_method'],
+  ),
+  created: const TimestampConverter().fromJson(
+    (json['created'] as num).toInt(),
+  ),
+  currency: json['currency'] as String,
+  customFields: (json['custom_fields'] as List<dynamic>?)
+      ?.map((e) => InvoiceCustomField.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  customer: json['customer'] as String,
+  customerAccount: json['customer_account'] as String?,
+  customerAddress: json['customer_address'] == null
+      ? null
+      : Address.fromJson(json['customer_address'] as Map<String, dynamic>),
+  customerEmail: json['customer_email'] as String?,
+  customerName: json['customer_name'] as String?,
+  customerPhone: json['customer_phone'] as String?,
+  customerShipping: json['customer_shipping'] == null
+      ? null
+      : InvoiceCustomerShipping.fromJson(
+          json['customer_shipping'] as Map<String, dynamic>,
+        ),
+  customerTaxExempt: $enumDecodeNullable(
+    _$CustomerTaxExemptEnumMap,
+    json['customer_tax_exempt'],
+  ),
+  defaultPaymentMethod: json['default_payment_method'] as String?,
+  defaultSource: json['default_source'] as String?,
+  description: json['description'] as String?,
+  discounts: (json['discounts'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  dueDate: _$JsonConverterFromJson<int, DateTime>(
+    json['due_date'],
+    const TimestampConverter().fromJson,
+  ),
+  effectiveAt: _$JsonConverterFromJson<int, DateTime>(
+    json['effective_at'],
+    const TimestampConverter().fromJson,
+  ),
+  endingBalance: (json['ending_balance'] as num?)?.toInt(),
+  footer: json['footer'] as String?,
+  hostedInvoiceUrl: json['hosted_invoice_url'] as String?,
+  invoicePdf: json['invoice_pdf'] as String?,
+  issuer: InvoiceIssuer.fromJson(json['issuer'] as Map<String, dynamic>),
+  latestRevision: json['latest_revision'] as String?,
+  lines: DataList<InvoiceLineItem>.fromJson(
+    json['lines'] as Map<String, dynamic>,
+    (value) => InvoiceLineItem.fromJson(value as Map<String, dynamic>),
+  ),
+  livemode: json['livemode'] as bool,
+  metadata: json['metadata'] as Map<String, dynamic>?,
+  nextPaymentAttempt: _$JsonConverterFromJson<int, DateTime>(
+    json['next_payment_attempt'],
+    const TimestampConverter().fromJson,
+  ),
+  number: json['number'] as String?,
+  onBehalfOf: json['on_behalf_of'] as String?,
+  paymentSettings: InvoicePaymentSettings.fromJson(
+    json['payment_settings'] as Map<String, dynamic>,
+  ),
+  periodEnd: const TimestampConverter().fromJson(
+    (json['period_end'] as num).toInt(),
+  ),
+  periodStart: const TimestampConverter().fromJson(
+    (json['period_start'] as num).toInt(),
+  ),
+  postPaymentCreditNotesAmount:
+      (json['post_payment_credit_notes_amount'] as num).toInt(),
+  prePaymentCreditNotesAmount: (json['pre_payment_credit_notes_amount'] as num)
+      .toInt(),
+  receiptNumber: json['receipt_number'] as String?,
+  startingBalance: (json['starting_balance'] as num).toInt(),
+  statementDescriptor: json['statement_descriptor'] as String?,
+  status: $enumDecodeNullable(_$InvoiceStatusEnumMap, json['status']),
+  statusTransitions: InvoiceStatusTransitions.fromJson(
+    json['status_transitions'] as Map<String, dynamic>,
+  ),
+  subscription: json['subscription'] as String?,
+  subtotal: (json['subtotal'] as num).toInt(),
+  subtotalExcludingTax: (json['subtotal_excluding_tax'] as num?)?.toInt(),
+  testClock: json['test_clock'] as String?,
+  total: (json['total'] as num).toInt(),
+  totalExcludingTax: (json['total_excluding_tax'] as num?)?.toInt(),
+  webhooksDeliveredAt: _$JsonConverterFromJson<int, DateTime>(
+    json['webhooks_delivered_at'],
+    const TimestampConverter().fromJson,
+  ),
+);
+
+Map<String, dynamic> _$InvoiceToJson(Invoice instance) => <String, dynamic>{
+  'object': _$_InvoiceObjectEnumMap[instance.object]!,
+  'id': instance.id,
+  'account_country': ?instance.accountCountry,
+  'account_name': ?instance.accountName,
+  'account_tax_ids': ?instance.accountTaxIds,
+  'amount_due': instance.amountDue,
+  'amount_overpaid': instance.amountOverpaid,
+  'amount_paid': instance.amountPaid,
+  'amount_remaining': instance.amountRemaining,
+  'amount_shipping': instance.amountShipping,
+  'application': ?instance.application,
+  'attempt_count': instance.attemptCount,
+  'attempted': instance.attempted,
+  'auto_advance': instance.autoAdvance,
+  'automatic_tax': instance.automaticTax.toJson(),
+  'automatically_finalizes_at': ?_$JsonConverterToJson<int, DateTime>(
+    instance.automaticallyFinalizesAt,
+    const TimestampConverter().toJson,
+  ),
+  'billing_reason': ?_$InvoiceBillingReasonEnumMap[instance.billingReason],
+  'collection_method':
+      _$InvoiceCollectionMethodEnumMap[instance.collectionMethod]!,
+  'created': const TimestampConverter().toJson(instance.created),
+  'currency': instance.currency,
+  'custom_fields': ?instance.customFields?.map((e) => e.toJson()).toList(),
+  'customer': instance.customer,
+  'customer_account': ?instance.customerAccount,
+  'customer_address': ?instance.customerAddress?.toJson(),
+  'customer_email': ?instance.customerEmail,
+  'customer_name': ?instance.customerName,
+  'customer_phone': ?instance.customerPhone,
+  'customer_shipping': ?instance.customerShipping?.toJson(),
+  'customer_tax_exempt':
+      ?_$CustomerTaxExemptEnumMap[instance.customerTaxExempt],
+  'default_payment_method': ?instance.defaultPaymentMethod,
+  'default_source': ?instance.defaultSource,
+  'description': ?instance.description,
+  'discounts': ?instance.discounts,
+  'due_date': ?_$JsonConverterToJson<int, DateTime>(
+    instance.dueDate,
+    const TimestampConverter().toJson,
+  ),
+  'effective_at': ?_$JsonConverterToJson<int, DateTime>(
+    instance.effectiveAt,
+    const TimestampConverter().toJson,
+  ),
+  'ending_balance': ?instance.endingBalance,
+  'footer': ?instance.footer,
+  'hosted_invoice_url': ?instance.hostedInvoiceUrl,
+  'invoice_pdf': ?instance.invoicePdf,
+  'issuer': instance.issuer.toJson(),
+  'latest_revision': ?instance.latestRevision,
+  'lines': instance.lines.toJson((value) => value.toJson()),
+  'livemode': instance.livemode,
+  'metadata': ?instance.metadata,
+  'next_payment_attempt': ?_$JsonConverterToJson<int, DateTime>(
+    instance.nextPaymentAttempt,
+    const TimestampConverter().toJson,
+  ),
+  'number': ?instance.number,
+  'on_behalf_of': ?instance.onBehalfOf,
+  'payment_settings': instance.paymentSettings.toJson(),
+  'period_end': const TimestampConverter().toJson(instance.periodEnd),
+  'period_start': const TimestampConverter().toJson(instance.periodStart),
+  'post_payment_credit_notes_amount': instance.postPaymentCreditNotesAmount,
+  'pre_payment_credit_notes_amount': instance.prePaymentCreditNotesAmount,
+  'receipt_number': ?instance.receiptNumber,
+  'starting_balance': instance.startingBalance,
+  'statement_descriptor': ?instance.statementDescriptor,
+  'status': ?_$InvoiceStatusEnumMap[instance.status],
+  'status_transitions': instance.statusTransitions.toJson(),
+  'subscription': ?instance.subscription,
+  'subtotal': instance.subtotal,
+  'subtotal_excluding_tax': ?instance.subtotalExcludingTax,
+  'test_clock': ?instance.testClock,
+  'total': instance.total,
+  'total_excluding_tax': ?instance.totalExcludingTax,
+  'webhooks_delivered_at': ?_$JsonConverterToJson<int, DateTime>(
+    instance.webhooksDeliveredAt,
+    const TimestampConverter().toJson,
+  ),
+};
+
+const _$_InvoiceObjectEnumMap = {_InvoiceObject.invoice: 'invoice'};
+
+const _$InvoiceBillingReasonEnumMap = {
+  InvoiceBillingReason.automatic_pending_invoice_item_invoice:
+      'automatic_pending_invoice_item_invoice',
+  InvoiceBillingReason.manual: 'manual',
+  InvoiceBillingReason.quote_accept: 'quote_accept',
+  InvoiceBillingReason.subscription: 'subscription',
+  InvoiceBillingReason.subscription_create: 'subscription_create',
+  InvoiceBillingReason.subscription_cycle: 'subscription_cycle',
+  InvoiceBillingReason.subscription_threshold: 'subscription_threshold',
+  InvoiceBillingReason.subscription_update: 'subscription_update',
+  InvoiceBillingReason.upcoming: 'upcoming',
+};
+
+const _$InvoiceCollectionMethodEnumMap = {
+  InvoiceCollectionMethod.charge_automatically: 'charge_automatically',
+  InvoiceCollectionMethod.send_invoice: 'send_invoice',
+};
+
+const _$CustomerTaxExemptEnumMap = {
+  CustomerTaxExempt.exempt: 'exempt',
+  CustomerTaxExempt.none: 'none',
+  CustomerTaxExempt.reverse: 'reverse',
+};
+
+const _$InvoiceStatusEnumMap = {
+  InvoiceStatus.draft: 'draft',
+  InvoiceStatus.open: 'open',
+  InvoiceStatus.paid: 'paid',
+  InvoiceStatus.uncollectible: 'uncollectible',
+  InvoiceStatus.void_: 'void_',
+};
+
+InvoiceEvent _$InvoiceEventFromJson(Map<String, dynamic> json) => InvoiceEvent(
+  object: $enumDecode(_$_EventObjectEnumMap, json['object']),
+  id: json['id'] as String,
+  type: json['type'] as String,
+  data: EventData<Invoice>.fromJson(
+    json['data'] as Map<String, dynamic>,
+    (value) => Invoice.fromJson(value as Map<String, dynamic>),
+  ),
+);
+
+Map<String, dynamic> _$InvoiceEventToJson(InvoiceEvent instance) =>
+    <String, dynamic>{
+      'object': _$_EventObjectEnumMap[instance.object]!,
+      'id': instance.id,
+      'data': instance.data.toJson((value) => value.toJson()),
+      'type': instance.type,
+    };
+
 PaymentIntent _$PaymentIntentFromJson(Map<String, dynamic> json) =>
     PaymentIntent(
       object: $enumDecode(_$_PaymentIntentObjectEnumMap, json['object']),
@@ -420,20 +934,10 @@ const _$_PaymentIntentObjectEnumMap = {
   _PaymentIntentObject.payment_intent: 'payment_intent',
 };
 
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) => json == null ? null : fromJson(json as Json);
-
 const _$SetupFutureUsageEnumMap = {
   SetupFutureUsage.on_session: 'on_session',
   SetupFutureUsage.off_session: 'off_session',
 };
-
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) => value == null ? null : toJson(value);
 
 AutomaticPaymentMethods _$AutomaticPaymentMethodsFromJson(
   Map<String, dynamic> json,
