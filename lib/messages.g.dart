@@ -872,6 +872,17 @@ Map<String, dynamic> _$InvoiceEventToJson(InvoiceEvent instance) =>
       'type': _$EventTypeEnumMap[instance.type]!,
     };
 
+PaymentIntentMetadata _$PaymentIntentMetadataFromJson(
+  Map<String, dynamic> json,
+) => PaymentIntentMetadata(
+  product: json['product'] as String,
+  price: json['price'] as String,
+);
+
+Map<String, dynamic> _$PaymentIntentMetadataToJson(
+  PaymentIntentMetadata instance,
+) => <String, dynamic>{'product': instance.product, 'price': instance.price};
+
 PaymentIntent _$PaymentIntentFromJson(Map<String, dynamic> json) =>
     PaymentIntent(
       object: $enumDecode(_$_PaymentIntentObjectEnumMap, json['object']),
@@ -897,9 +908,11 @@ PaymentIntent _$PaymentIntentFromJson(Map<String, dynamic> json) =>
       customer: json['customer'] as String?,
       description: json['description'] as String?,
       latestCharge: json['latest_charge'] as String?,
-      metadata: (json['metadata'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
+      metadata: json['metadata'] == null
+          ? null
+          : PaymentIntentMetadata.fromJson(
+              json['metadata'] as Map<String, dynamic>,
+            ),
       paymentMethod: json['payment_method'] as String?,
       paymentMethodTypes: (json['payment_method_types'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$PaymentMethodTypeEnumMap, e))
@@ -940,7 +953,7 @@ Map<String, dynamic> _$PaymentIntentToJson(
   'customer': ?instance.customer,
   'description': ?instance.description,
   'latest_charge': ?instance.latestCharge,
-  'metadata': ?instance.metadata,
+  'metadata': ?instance.metadata?.toJson(),
   'payment_method': ?instance.paymentMethod,
   'payment_method_types': ?instance.paymentMethodTypes
       ?.map((e) => _$PaymentMethodTypeEnumMap[e]!)
