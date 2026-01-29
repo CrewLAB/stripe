@@ -4,6 +4,7 @@ enum _EventObject { event }
 
 /// Event types for Stripe webhooks
 enum EventType {
+  // Invoice events
   /// Successful payment for subscription or invoice
   @JsonValue('invoice.paid')
   invoicePaid,
@@ -12,6 +13,24 @@ enum EventType {
   @JsonValue('invoice.payment_failed')
   invoicePaymentFailed,
 
+  /// Invoice payment succeeded
+  @JsonValue('invoice.payment_succeeded')
+  invoicePaymentSucceeded,
+
+  // Customer events
+  /// New customer created
+  @JsonValue('customer.created')
+  customerCreated,
+
+  /// Customer updated
+  @JsonValue('customer.updated')
+  customerUpdated,
+
+  /// Customer deleted
+  @JsonValue('customer.deleted')
+  customerDeleted,
+
+  // Subscription events
   /// New subscription created
   @JsonValue('customer.subscription.created')
   customerSubscriptionCreated,
@@ -24,6 +43,11 @@ enum EventType {
   @JsonValue('customer.subscription.deleted')
   customerSubscriptionDeleted,
 
+  /// Subscription trial period ending soon
+  @JsonValue('customer.subscription.trial_will_end')
+  customerSubscriptionTrialWillEnd,
+
+  // Payment intent events
   /// Successful one-time payment
   @JsonValue('payment_intent.succeeded')
   paymentIntentSucceeded,
@@ -31,6 +55,23 @@ enum EventType {
   /// Failed one-time payment
   @JsonValue('payment_intent.payment_failed')
   paymentIntentPaymentFailed,
+
+  // Checkout session events
+  /// Checkout session completed successfully
+  @JsonValue('checkout.session.completed')
+  checkoutSessionCompleted,
+
+  /// Checkout session expired without completing
+  @JsonValue('checkout.session.expired')
+  checkoutSessionExpired,
+
+  /// Async payment succeeded for checkout session
+  @JsonValue('checkout.session.async_payment_succeeded')
+  checkoutSessionAsyncPaymentSucceeded,
+
+  /// Async payment failed for checkout session
+  @JsonValue('checkout.session.async_payment_failed')
+  checkoutSessionAsyncPaymentFailed,
 }
 
 /// https://stripe.com/docs/api/events/object

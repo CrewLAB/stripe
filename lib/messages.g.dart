@@ -244,11 +244,23 @@ const _$_EventObjectEnumMap = {_EventObject.event: 'event'};
 const _$EventTypeEnumMap = {
   EventType.invoicePaid: 'invoice.paid',
   EventType.invoicePaymentFailed: 'invoice.payment_failed',
+  EventType.invoicePaymentSucceeded: 'invoice.payment_succeeded',
+  EventType.customerCreated: 'customer.created',
+  EventType.customerUpdated: 'customer.updated',
+  EventType.customerDeleted: 'customer.deleted',
   EventType.customerSubscriptionCreated: 'customer.subscription.created',
   EventType.customerSubscriptionUpdated: 'customer.subscription.updated',
   EventType.customerSubscriptionDeleted: 'customer.subscription.deleted',
+  EventType.customerSubscriptionTrialWillEnd:
+      'customer.subscription.trial_will_end',
   EventType.paymentIntentSucceeded: 'payment_intent.succeeded',
   EventType.paymentIntentPaymentFailed: 'payment_intent.payment_failed',
+  EventType.checkoutSessionCompleted: 'checkout.session.completed',
+  EventType.checkoutSessionExpired: 'checkout.session.expired',
+  EventType.checkoutSessionAsyncPaymentSucceeded:
+      'checkout.session.async_payment_succeeded',
+  EventType.checkoutSessionAsyncPaymentFailed:
+      'checkout.session.async_payment_failed',
 };
 
 CustomerEvent _$CustomerEventFromJson(Map<String, dynamic> json) =>
