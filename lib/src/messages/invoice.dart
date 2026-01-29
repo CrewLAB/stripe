@@ -704,7 +704,7 @@ class InvoiceEvent extends Event<Invoice> {
   InvoiceEvent({
     required _EventObject object,
     required String id,
-    required String type,
+    required EventType type,
     required EventData<Invoice> data,
   }) : super(object: object, id: id, data: data, type: type);
 

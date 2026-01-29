@@ -224,7 +224,7 @@ SubscriptionEvent _$SubscriptionEventFromJson(Map<String, dynamic> json) =>
     SubscriptionEvent(
       object: $enumDecode(_$_EventObjectEnumMap, json['object']),
       id: json['id'] as String,
-      type: json['type'] as String,
+      type: $enumDecode(_$EventTypeEnumMap, json['type']),
       data: EventData<Subscription>.fromJson(
         json['data'] as Map<String, dynamic>,
         (value) => Subscription.fromJson(value as Map<String, dynamic>),
@@ -236,16 +236,26 @@ Map<String, dynamic> _$SubscriptionEventToJson(SubscriptionEvent instance) =>
       'object': _$_EventObjectEnumMap[instance.object]!,
       'id': instance.id,
       'data': instance.data.toJson((value) => value.toJson()),
-      'type': instance.type,
+      'type': _$EventTypeEnumMap[instance.type]!,
     };
 
 const _$_EventObjectEnumMap = {_EventObject.event: 'event'};
+
+const _$EventTypeEnumMap = {
+  EventType.invoicePaid: 'invoice.paid',
+  EventType.invoicePaymentFailed: 'invoice.payment_failed',
+  EventType.customerSubscriptionCreated: 'customer.subscription.created',
+  EventType.customerSubscriptionUpdated: 'customer.subscription.updated',
+  EventType.customerSubscriptionDeleted: 'customer.subscription.deleted',
+  EventType.paymentIntentSucceeded: 'payment_intent.succeeded',
+  EventType.paymentIntentPaymentFailed: 'payment_intent.payment_failed',
+};
 
 CustomerEvent _$CustomerEventFromJson(Map<String, dynamic> json) =>
     CustomerEvent(
       object: $enumDecode(_$_EventObjectEnumMap, json['object']),
       id: json['id'] as String,
-      type: json['type'] as String,
+      type: $enumDecode(_$EventTypeEnumMap, json['type']),
       data: EventData<Customer>.fromJson(
         json['data'] as Map<String, dynamic>,
         (value) => Customer.fromJson(value as Map<String, dynamic>),
@@ -257,13 +267,13 @@ Map<String, dynamic> _$CustomerEventToJson(CustomerEvent instance) =>
       'object': _$_EventObjectEnumMap[instance.object]!,
       'id': instance.id,
       'data': instance.data.toJson((value) => value.toJson()),
-      'type': instance.type,
+      'type': _$EventTypeEnumMap[instance.type]!,
     };
 
 ChargeEvent _$ChargeEventFromJson(Map<String, dynamic> json) => ChargeEvent(
   object: $enumDecode(_$_EventObjectEnumMap, json['object']),
   id: json['id'] as String,
-  type: json['type'] as String,
+  type: $enumDecode(_$EventTypeEnumMap, json['type']),
   data: EventData<Charge>.fromJson(
     json['data'] as Map<String, dynamic>,
     (value) => Charge.fromJson(value as Map<String, dynamic>),
@@ -275,14 +285,14 @@ Map<String, dynamic> _$ChargeEventToJson(ChargeEvent instance) =>
       'object': _$_EventObjectEnumMap[instance.object]!,
       'id': instance.id,
       'data': instance.data.toJson((value) => value.toJson()),
-      'type': instance.type,
+      'type': _$EventTypeEnumMap[instance.type]!,
     };
 
 PaymentIntentEvent _$PaymentIntentEventFromJson(Map<String, dynamic> json) =>
     PaymentIntentEvent(
       object: $enumDecode(_$_EventObjectEnumMap, json['object']),
       id: json['id'] as String,
-      type: json['type'] as String,
+      type: $enumDecode(_$EventTypeEnumMap, json['type']),
       data: EventData<PaymentIntent>.fromJson(
         json['data'] as Map<String, dynamic>,
         (value) => PaymentIntent.fromJson(value as Map<String, dynamic>),
@@ -294,13 +304,13 @@ Map<String, dynamic> _$PaymentIntentEventToJson(PaymentIntentEvent instance) =>
       'object': _$_EventObjectEnumMap[instance.object]!,
       'id': instance.id,
       'data': instance.data.toJson((value) => value.toJson()),
-      'type': instance.type,
+      'type': _$EventTypeEnumMap[instance.type]!,
     };
 
 RefundEvent _$RefundEventFromJson(Map<String, dynamic> json) => RefundEvent(
   object: $enumDecode(_$_EventObjectEnumMap, json['object']),
   id: json['id'] as String,
-  type: json['type'] as String,
+  type: $enumDecode(_$EventTypeEnumMap, json['type']),
   data: EventData<Refund>.fromJson(
     json['data'] as Map<String, dynamic>,
     (value) => Refund.fromJson(value as Map<String, dynamic>),
@@ -312,7 +322,7 @@ Map<String, dynamic> _$RefundEventToJson(RefundEvent instance) =>
       'object': _$_EventObjectEnumMap[instance.object]!,
       'id': instance.id,
       'data': instance.data.toJson((value) => value.toJson()),
-      'type': instance.type,
+      'type': _$EventTypeEnumMap[instance.type]!,
     };
 
 CheckoutSessionEvent _$CheckoutSessionEventFromJson(
@@ -320,7 +330,7 @@ CheckoutSessionEvent _$CheckoutSessionEventFromJson(
 ) => CheckoutSessionEvent(
   object: $enumDecode(_$_EventObjectEnumMap, json['object']),
   id: json['id'] as String,
-  type: json['type'] as String,
+  type: $enumDecode(_$EventTypeEnumMap, json['type']),
   data: EventData<CheckoutSession>.fromJson(
     json['data'] as Map<String, dynamic>,
     (value) => CheckoutSession.fromJson(value as Map<String, dynamic>),
@@ -333,7 +343,7 @@ Map<String, dynamic> _$CheckoutSessionEventToJson(
   'object': _$_EventObjectEnumMap[instance.object]!,
   'id': instance.id,
   'data': instance.data.toJson((value) => value.toJson()),
-  'type': instance.type,
+  'type': _$EventTypeEnumMap[instance.type]!,
 };
 
 InvoiceAutomaticTax _$InvoiceAutomaticTaxFromJson(Map<String, dynamic> json) =>
@@ -835,7 +845,7 @@ const _$InvoiceStatusEnumMap = {
 InvoiceEvent _$InvoiceEventFromJson(Map<String, dynamic> json) => InvoiceEvent(
   object: $enumDecode(_$_EventObjectEnumMap, json['object']),
   id: json['id'] as String,
-  type: json['type'] as String,
+  type: $enumDecode(_$EventTypeEnumMap, json['type']),
   data: EventData<Invoice>.fromJson(
     json['data'] as Map<String, dynamic>,
     (value) => Invoice.fromJson(value as Map<String, dynamic>),
@@ -847,7 +857,7 @@ Map<String, dynamic> _$InvoiceEventToJson(InvoiceEvent instance) =>
       'object': _$_EventObjectEnumMap[instance.object]!,
       'id': instance.id,
       'data': instance.data.toJson((value) => value.toJson()),
-      'type': instance.type,
+      'type': _$EventTypeEnumMap[instance.type]!,
     };
 
 PaymentIntent _$PaymentIntentFromJson(Map<String, dynamic> json) =>
