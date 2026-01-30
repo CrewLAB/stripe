@@ -23,4 +23,9 @@ class PriceResource extends Resource<Price> {
     final map = await post('prices', data: request.toJson());
     return Price.fromJson(map);
   }
+
+  Future<Price> update(UpdatePriceRequest request) async {
+    final map = await post('prices/${request.id}', data: request.toJson());
+    return Price.fromJson(map);
+  }
 }
