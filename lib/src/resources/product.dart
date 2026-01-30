@@ -23,4 +23,9 @@ class ProductResource extends Resource<Product> {
     final map = await post('products', data: request.toJson());
     return Product.fromJson(map);
   }
+
+  Future<Product> update(UpdateProductRequest request) async {
+    final map = await post('products/${request.id}', data: request.toJson());
+    return Product.fromJson(map);
+  }
 }

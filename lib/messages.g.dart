@@ -1507,6 +1507,42 @@ Map<String, dynamic> _$UpdateCustomerRequestToJson(
   'id': instance.id,
 };
 
+UpdatePriceRequest _$UpdatePriceRequestFromJson(Map<String, dynamic> json) =>
+    UpdatePriceRequest(
+      id: json['id'] as String,
+      active: json['active'] as bool?,
+      metadata: json['metadata'] as Map<String, dynamic>?,
+      nickname: json['nickname'] as String?,
+    );
+
+Map<String, dynamic> _$UpdatePriceRequestToJson(UpdatePriceRequest instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'active': ?instance.active,
+      'metadata': ?instance.metadata,
+      'nickname': ?instance.nickname,
+    };
+
+UpdateProductRequest _$UpdateProductRequestFromJson(
+  Map<String, dynamic> json,
+) => UpdateProductRequest(
+  id: json['id'] as String,
+  name: json['name'] as String?,
+  active: json['active'] as bool?,
+  description: json['description'] as String?,
+  metadata: json['metadata'] as Map<String, dynamic>?,
+);
+
+Map<String, dynamic> _$UpdateProductRequestToJson(
+  UpdateProductRequest instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': ?instance.name,
+  'active': ?instance.active,
+  'description': ?instance.description,
+  'metadata': ?instance.metadata,
+};
+
 Subscription _$SubscriptionFromJson(Map<String, dynamic> json) => Subscription(
   object: $enumDecode(_$_SubscriptionObjectEnumMap, json['object']),
   id: json['id'] as String,
