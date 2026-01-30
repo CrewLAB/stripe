@@ -12,6 +12,9 @@ class UpdateProductRequest {
   /// Whether the product is available for purchase.
   final bool? active;
 
+  /// The ID of the Price object that is the default price for this product.
+  final String? defaultPrice;
+
   /// The product's description, meant to be displayable to the customer.
   final String? description;
 
@@ -22,6 +25,7 @@ class UpdateProductRequest {
     required this.id,
     this.name,
     this.active,
+    this.defaultPrice,
     this.description,
     this.metadata,
   });

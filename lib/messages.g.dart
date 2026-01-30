@@ -1529,6 +1529,7 @@ UpdateProductRequest _$UpdateProductRequestFromJson(
   id: json['id'] as String,
   name: json['name'] as String?,
   active: json['active'] as bool?,
+  defaultPrice: json['default_price'] as String?,
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
 );
@@ -1539,6 +1540,7 @@ Map<String, dynamic> _$UpdateProductRequestToJson(
   'id': instance.id,
   'name': ?instance.name,
   'active': ?instance.active,
+  'default_price': ?instance.defaultPrice,
   'description': ?instance.description,
   'metadata': ?instance.metadata,
 };
