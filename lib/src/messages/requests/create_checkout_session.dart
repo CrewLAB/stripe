@@ -50,7 +50,7 @@ class CreateCheckoutSessionRequest {
   /// A unique string to reference the Checkout Session. This can be a customer
   /// ID, a cart ID, or similar, and can be used to reconcile the Session with
   /// your internal systems.
-  final String? clientReferenceId;
+  final String? customerId;
 
   /// If provided, this value will be used when the Customer object is created.
   /// If not provided, customers will be asked to enter their email address. Use
@@ -98,7 +98,7 @@ class CreateCheckoutSessionRequest {
     required this.cancelUrl,
     required this.paymentMethodTypes,
     this.mode,
-    this.clientReferenceId,
+    this.customerId,
     this.customerEmail,
     this.customer,
     this.lineItems,
@@ -241,21 +241,75 @@ enum SetupFutureUsage {
 }
 
 @JsonSerializable()
+class TransferData {
+  /// The connected account receiving the transfer.
+  final String destination;
+
+  /// The amount to transfer to the destination account (for payment intents only).
+  /// If not specified, the entire amount is transferred minus the application fee.
+  final int? amount;
+
+  TransferData({
+    required this.destination,
+    this.amount,
+  });
+
+  factory TransferData.fromJson(Map<String, dynamic> json) =>
+      _$TransferDataFromJson(json);
+  Map<String, dynamic> toJson() => _$TransferDataToJson(this);
+}
+
+@JsonSerializable()
+class PaymentIntentMetadata {
+  final String? product;
+  final String? payment;
+  final int? groupId;
+
+  PaymentIntentMetadata({
+    this.product,
+    this.payment,
+    this.groupId,
+  });
+
+  factory PaymentIntentMetadata.fromJson(Map<String, dynamic> json) =>
+      _$PaymentIntentMetadataFromJson(json);
+  Map<String, dynamic> toJson() => _$PaymentIntentMetadataToJson(this);
+}
+
+@JsonSerializable()
 class PaymentIntentData {
   final String? receiptEmail;
   final SetupFutureUsage? setupFutureUsage;
-
   final int? applicationFeeAmount;
+  final PaymentIntentMetadata? metadata;
+  final TransferData? transferData;
+  final String? onBehalfOf;
 
   PaymentIntentData({
     this.receiptEmail,
     this.setupFutureUsage,
     this.applicationFeeAmount,
+    this.metadata,
+    this.transferData,
+    this.onBehalfOf,
   });
 
   factory PaymentIntentData.fromJson(Map<String, dynamic> json) =>
       _$PaymentIntentDataFromJson(json);
   Map<String, dynamic> toJson() => _$PaymentIntentDataToJson(this);
+}
+
+@JsonSerializable()
+class SubscriptionMetadata {
+  final int? groupId;
+
+  SubscriptionMetadata({
+    this.groupId,
+  });
+
+  factory SubscriptionMetadata.fromJson(Map<String, dynamic> json) =>
+      _$SubscriptionMetadataFromJson(json);
+  Map<String, dynamic> toJson() => _$SubscriptionMetadataToJson(this);
 }
 
 @JsonSerializable()
@@ -269,19 +323,24 @@ class SubscriptionData {
   /// is charged for the first time. Has to be at least 1.
   final int? trialPeriodDays;
 
-  /// Set of key-value pairs that you can attach to an object. This can be
-  /// useful for storing additional information about the object in a structured
-  /// format. Individual keys can be unset by posting an empty value to them.
-  /// All keys can be unset by posting an empty value to metadata.
-  final Map<String, dynamic>? metadata;
+  /// Metadata to attach to the subscription.
+  final SubscriptionMetadata? metadata;
 
+  /// A non-negative decimal between 0 and 100 representing the percentage of
+  /// the subscription invoice total that will be transferred to the application
+  /// owner's Stripe account.
   final double? applicationFeePercent;
+
+  /// The connected account that issues the invoice. The invoice is presented
+  /// with the branding and support information of the specified account.
+  final TransferData? transferData;
 
   SubscriptionData({
     this.trialEnd,
     this.trialPeriodDays,
     this.metadata,
     this.applicationFeePercent,
+    this.transferData,
   });
 
   factory SubscriptionData.fromJson(Map<String, dynamic> json) =>
