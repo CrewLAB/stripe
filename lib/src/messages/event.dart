@@ -2,6 +2,78 @@ part of '../../messages.dart';
 
 enum _EventObject { event }
 
+/// Event types for Stripe webhooks
+enum EventType {
+  // Invoice events
+  /// Successful payment for subscription or invoice
+  @JsonValue('invoice.paid')
+  invoicePaid,
+
+  /// Failed payment attempt on invoice
+  @JsonValue('invoice.payment_failed')
+  invoicePaymentFailed,
+
+  /// Invoice payment succeeded
+  @JsonValue('invoice.payment_succeeded')
+  invoicePaymentSucceeded,
+
+  // Customer events
+  /// New customer created
+  @JsonValue('customer.created')
+  customerCreated,
+
+  /// Customer updated
+  @JsonValue('customer.updated')
+  customerUpdated,
+
+  /// Customer deleted
+  @JsonValue('customer.deleted')
+  customerDeleted,
+
+  // Subscription events
+  /// New subscription created
+  @JsonValue('customer.subscription.created')
+  customerSubscriptionCreated,
+
+  /// Subscription updated (including cancellations)
+  @JsonValue('customer.subscription.updated')
+  customerSubscriptionUpdated,
+
+  /// Subscription ended/deleted
+  @JsonValue('customer.subscription.deleted')
+  customerSubscriptionDeleted,
+
+  /// Subscription trial period ending soon
+  @JsonValue('customer.subscription.trial_will_end')
+  customerSubscriptionTrialWillEnd,
+
+  // Payment intent events
+  /// Successful one-time payment
+  @JsonValue('payment_intent.succeeded')
+  paymentIntentSucceeded,
+
+  /// Failed one-time payment
+  @JsonValue('payment_intent.payment_failed')
+  paymentIntentPaymentFailed,
+
+  // Checkout session events
+  /// Checkout session completed successfully
+  @JsonValue('checkout.session.completed')
+  checkoutSessionCompleted,
+
+  /// Checkout session expired without completing
+  @JsonValue('checkout.session.expired')
+  checkoutSessionExpired,
+
+  /// Async payment succeeded for checkout session
+  @JsonValue('checkout.session.async_payment_succeeded')
+  checkoutSessionAsyncPaymentSucceeded,
+
+  /// Async payment failed for checkout session
+  @JsonValue('checkout.session.async_payment_failed')
+  checkoutSessionAsyncPaymentFailed,
+}
+
 /// https://stripe.com/docs/api/events/object
 abstract class Event<T extends Message> extends Message {
   final _EventObject object;
@@ -12,8 +84,8 @@ abstract class Event<T extends Message> extends Message {
   /// Object containing data associated with the event.
   EventData<T> data;
 
-  /// Description of the event (e.g., invoice.created or charge.refunded).
-  final String type;
+  /// Description of the event (e.g., invoice.paid or payment_intent.succeeded).
+  final EventType type;
 
   Event({
     required this.object,
@@ -33,6 +105,8 @@ abstract class Event<T extends Message> extends Message {
         return CheckoutSessionEvent.fromJson(json) as T;
       case 'customer':
         return CustomerEvent.fromJson(json) as T;
+      case 'invoice':
+        return InvoiceEvent.fromJson(json) as T;
       case 'payment_intent':
         return PaymentIntentEvent.fromJson(json) as T;
       // case 'portal_session'     :
@@ -71,7 +145,7 @@ class SubscriptionEvent extends Event<Subscription> {
   SubscriptionEvent({
     required _EventObject object,
     required String id,
-    required String type,
+    required EventType type,
     required EventData<Subscription> data,
   }) : super(object: object, id: id, data: data, type: type);
 
@@ -87,7 +161,7 @@ class CustomerEvent extends Event<Customer> {
   CustomerEvent({
     required _EventObject object,
     required String id,
-    required String type,
+    required EventType type,
     required EventData<Customer> data,
   }) : super(object: object, id: id, data: data, type: type);
 
@@ -103,7 +177,7 @@ class ChargeEvent extends Event<Charge> {
   ChargeEvent({
     required _EventObject object,
     required String id,
-    required String type,
+    required EventType type,
     required EventData<Charge> data,
   }) : super(object: object, id: id, data: data, type: type);
 
@@ -119,7 +193,7 @@ class PaymentIntentEvent extends Event<PaymentIntent> {
   PaymentIntentEvent({
     required _EventObject object,
     required String id,
-    required String type,
+    required EventType type,
     required EventData<PaymentIntent> data,
   }) : super(object: object, id: id, data: data, type: type);
 
@@ -135,7 +209,7 @@ class RefundEvent extends Event<Refund> {
   RefundEvent({
     required _EventObject object,
     required String id,
-    required String type,
+    required EventType type,
     required EventData<Refund> data,
   }) : super(object: object, id: id, data: data, type: type);
 
@@ -151,7 +225,7 @@ class CheckoutSessionEvent extends Event<CheckoutSession> {
   CheckoutSessionEvent({
     required _EventObject object,
     required String id,
-    required String type,
+    required EventType type,
     required EventData<CheckoutSession> data,
   }) : super(object: object, id: id, data: data, type: type);
 

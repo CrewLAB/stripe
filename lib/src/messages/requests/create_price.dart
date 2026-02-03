@@ -13,7 +13,8 @@ class CreatePriceRequest {
   final String currency;
 
   /// The recurring components of a price such as interval and usage_type.
-  final PriceRecurring recurring;
+  /// Required for recurring prices, omit for one-time prices.
+  final PriceRecurring? recurring;
 
   /// A brief description of the price, hidden from customers.
   final String? nickname;
@@ -22,8 +23,8 @@ class CreatePriceRequest {
     required this.product,
     required this.unitAmount,
     required this.currency,
-    required this.recurring,
-    required this.nickname,
+    this.recurring,
+    this.nickname,
   });
 
   factory CreatePriceRequest.fromJson(Map<String, dynamic> json) =>

@@ -17,6 +17,14 @@ enum SubscriptionStatus {
   ended,
 }
 
+/// Collection method for subscriptions
+enum SubscriptionCollectionMethod {
+  // ignore: constant_identifier_names
+  charge_automatically,
+  // ignore: constant_identifier_names
+  send_invoice,
+}
+
 /// https://stripe.com/docs/api/subscriptions/object
 @JsonSerializable()
 class Subscription extends Message {
@@ -40,6 +48,13 @@ class Subscription extends Message {
   /// the end of this period, a new invoice will be created.
   @TimestampConverter()
   final DateTime currentPeriodEnd;
+
+  /// Either charge_automatically, or send_invoice. When charging automatically,
+  /// Stripe will attempt to pay this subscription at the end of the cycle using
+  /// the default source attached to the customer. When sending an invoice,
+  /// Stripe will email your customer an invoice with payment instructions.
+  @JsonKey(name: 'collection_method')
+  final SubscriptionCollectionMethod? collectionMethod;
 
   /// Possible values are incomplete, incomplete_expired, trialing, active,
   /// past_due, canceled, or unpaid.
@@ -86,6 +101,7 @@ class Subscription extends Message {
     required this.items,
     required this.currentPeriodStart,
     required this.currentPeriodEnd,
+    this.collectionMethod,
     this.metadata,
   });
 
