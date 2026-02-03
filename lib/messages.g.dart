@@ -1134,12 +1134,6 @@ Map<String, dynamic> _$InvoiceAutomaticTaxToJson(
       ?_$AutomaticTaxDisabledReasonEnumMap[instance.disabledReason],
 };
 
-const _$AutomaticTaxStatusEnumMap = {
-  AutomaticTaxStatus.complete: 'complete',
-  AutomaticTaxStatus.failed: 'failed',
-  AutomaticTaxStatus.requires_location_inputs: 'requires_location_inputs',
-};
-
 const _$AutomaticTaxDisabledReasonEnumMap = {
   AutomaticTaxDisabledReason.finalization_requires_location_inputs:
       'finalization_requires_location_inputs',
@@ -1337,15 +1331,6 @@ Map<String, dynamic> _$InvoiceLineItemToJson(InvoiceLineItem instance) =>
 const _$_InvoiceLineItemObjectEnumMap = {
   _InvoiceLineItemObject.line_item: 'line_item',
 };
-
-InvoiceCustomField _$InvoiceCustomFieldFromJson(Map<String, dynamic> json) =>
-    InvoiceCustomField(
-      name: json['name'] as String,
-      value: json['value'] as String,
-    );
-
-Map<String, dynamic> _$InvoiceCustomFieldToJson(InvoiceCustomField instance) =>
-    <String, dynamic>{'name': instance.name, 'value': instance.value};
 
 InvoicePaymentSettings _$InvoicePaymentSettingsFromJson(
   Map<String, dynamic> json,
@@ -1621,17 +1606,6 @@ Map<String, dynamic> _$InvoiceEventToJson(InvoiceEvent instance) =>
       'type': _$EventTypeEnumMap[instance.type]!,
     };
 
-PaymentIntentMetadata _$PaymentIntentMetadataFromJson(
-  Map<String, dynamic> json,
-) => PaymentIntentMetadata(
-  product: json['product'] as String,
-  price: json['price'] as String,
-);
-
-Map<String, dynamic> _$PaymentIntentMetadataToJson(
-  PaymentIntentMetadata instance,
-) => <String, dynamic>{'product': instance.product, 'price': instance.price};
-
 PaymentIntent _$PaymentIntentFromJson(Map<String, dynamic> json) =>
     PaymentIntent(
       object: $enumDecode(_$_PaymentIntentObjectEnumMap, json['object']),
@@ -1657,11 +1631,7 @@ PaymentIntent _$PaymentIntentFromJson(Map<String, dynamic> json) =>
       customer: json['customer'] as String?,
       description: json['description'] as String?,
       latestCharge: json['latest_charge'] as String?,
-      metadata: json['metadata'] == null
-          ? null
-          : PaymentIntentMetadata.fromJson(
-              json['metadata'] as Map<String, dynamic>,
-            ),
+      metadata: json['metadata'] as Map<String, dynamic>?,
       paymentMethod: json['payment_method'] as String?,
       paymentMethodTypes: (json['payment_method_types'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$PaymentMethodTypeEnumMap, e))
@@ -1702,7 +1672,7 @@ Map<String, dynamic> _$PaymentIntentToJson(
   'customer': ?instance.customer,
   'description': ?instance.description,
   'latest_charge': ?instance.latestCharge,
-  'metadata': ?instance.metadata?.toJson(),
+  'metadata': ?instance.metadata,
   'payment_method': ?instance.paymentMethod,
   'payment_method_types': ?instance.paymentMethodTypes
       ?.map((e) => _$PaymentMethodTypeEnumMap[e]!)

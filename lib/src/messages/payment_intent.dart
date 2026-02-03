@@ -3,26 +3,6 @@ part of '../../messages.dart';
 // ignore: constant_identifier_names
 enum _PaymentIntentObject { payment_intent }
 
-/// Metadata for PaymentIntent containing product and price references
-@JsonSerializable()
-class PaymentIntentMetadata {
-  /// The product ID associated with this payment
-  final String product;
-
-  /// The price ID associated with this payment
-  final String price;
-
-  PaymentIntentMetadata({
-    required this.product,
-    required this.price,
-  });
-
-  factory PaymentIntentMetadata.fromJson(Map<String, dynamic> json) =>
-      _$PaymentIntentMetadataFromJson(json);
-
-  Map<String, dynamic> toJson() => _$PaymentIntentMetadataToJson(this);
-}
-
 /// https://stripe.com/docs/api/payment_intents/object
 @JsonSerializable()
 class PaymentIntent extends Message {
@@ -42,7 +22,7 @@ class PaymentIntent extends Message {
   final String? customer;
   final String? description;
   final String? latestCharge;
-  final PaymentIntentMetadata? metadata;
+  final Map<String, dynamic>? metadata;
   final String? paymentMethod;
   final Set<PaymentMethodType>? paymentMethodTypes;
   final String? receiptEmail;
