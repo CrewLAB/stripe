@@ -1845,7 +1845,7 @@ CreateCheckoutSessionRequest _$CreateCheckoutSessionRequestFromJson(
       .map((e) => $enumDecode(_$PaymentMethodTypeEnumMap, e))
       .toList(),
   mode: $enumDecodeNullable(_$SessionModeEnumMap, json['mode']),
-  customerId: json['customer_id'] as String?,
+  clientReferenceId: json['client_reference_id'] as String?,
   customerEmail: json['customer_email'] as String?,
   customer: json['customer'] as String?,
   lineItems: (json['line_items'] as List<dynamic>?)
@@ -1884,7 +1884,7 @@ Map<String, dynamic> _$CreateCheckoutSessionRequestToJson(
   'payment_method_types': instance.paymentMethodTypes
       .map((e) => _$PaymentMethodTypeEnumMap[e]!)
       .toList(),
-  'customer_id': ?instance.customerId,
+  'client_reference_id': ?instance.clientReferenceId,
   'customer_email': ?instance.customerEmail,
   'customer': ?instance.customer,
   'line_items': ?instance.lineItems?.map((e) => e.toJson()).toList(),

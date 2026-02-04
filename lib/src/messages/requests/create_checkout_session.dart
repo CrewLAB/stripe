@@ -50,7 +50,7 @@ class CreateCheckoutSessionRequest {
   /// A unique string to reference the Checkout Session. This can be a customer
   /// ID, a cart ID, or similar, and can be used to reconcile the Session with
   /// your internal systems.
-  final String? customerId;
+  final String? clientReferenceId;
 
   /// If provided, this value will be used when the Customer object is created.
   /// If not provided, customers will be asked to enter their email address. Use
@@ -98,7 +98,7 @@ class CreateCheckoutSessionRequest {
     required this.cancelUrl,
     required this.paymentMethodTypes,
     this.mode,
-    this.customerId,
+    this.clientReferenceId,
     this.customerEmail,
     this.customer,
     this.lineItems,
