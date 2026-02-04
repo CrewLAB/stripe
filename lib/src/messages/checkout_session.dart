@@ -78,13 +78,6 @@ enum LiabilityType {
   self,
 }
 
-enum AutomaticTaxStatus {
-  complete,
-  failed,
-  // ignore: constant_identifier_names
-  requires_location_inputs,
-}
-
 enum TaxExempt {
   exempt,
   none,
@@ -365,21 +358,6 @@ class CustomText {
   factory CustomText.fromJson(Map<String, dynamic> json) =>
       _$CustomTextFromJson(json);
   Map<String, dynamic> toJson() => _$CustomTextToJson(this);
-}
-
-@JsonSerializable()
-class InvoiceCustomField {
-  final String name;
-  final String value;
-
-  InvoiceCustomField({
-    required this.name,
-    required this.value,
-  });
-
-  factory InvoiceCustomField.fromJson(Map<String, dynamic> json) =>
-      _$InvoiceCustomFieldFromJson(json);
-  Map<String, dynamic> toJson() => _$InvoiceCustomFieldToJson(this);
 }
 
 @JsonSerializable()

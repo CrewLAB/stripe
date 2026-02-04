@@ -208,15 +208,6 @@ Map<String, dynamic> _$CustomTextToJson(
   'terms_of_service_acceptance': ?instance.termsOfServiceAcceptance?.toJson(),
 };
 
-InvoiceCustomField _$InvoiceCustomFieldFromJson(Map<String, dynamic> json) =>
-    InvoiceCustomField(
-      name: json['name'] as String,
-      value: json['value'] as String,
-    );
-
-Map<String, dynamic> _$InvoiceCustomFieldToJson(InvoiceCustomField instance) =>
-    <String, dynamic>{'name': instance.name, 'value': instance.value};
-
 Issuer _$IssuerFromJson(Map<String, dynamic> json) => Issuer(
   account: json['account'] as String?,
   type: $enumDecode(_$LiabilityTypeEnumMap, json['type']),
@@ -1331,6 +1322,15 @@ Map<String, dynamic> _$InvoiceLineItemToJson(InvoiceLineItem instance) =>
 const _$_InvoiceLineItemObjectEnumMap = {
   _InvoiceLineItemObject.line_item: 'line_item',
 };
+
+InvoiceCustomField _$InvoiceCustomFieldFromJson(Map<String, dynamic> json) =>
+    InvoiceCustomField(
+      name: json['name'] as String,
+      value: json['value'] as String,
+    );
+
+Map<String, dynamic> _$InvoiceCustomFieldToJson(InvoiceCustomField instance) =>
+    <String, dynamic>{'name': instance.name, 'value': instance.value};
 
 InvoicePaymentSettings _$InvoicePaymentSettingsFromJson(
   Map<String, dynamic> json,
