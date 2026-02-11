@@ -1970,16 +1970,16 @@ PaymentIntentMetadata _$PaymentIntentMetadataFromJson(
   Map<String, dynamic> json,
 ) => PaymentIntentMetadata(
   product: json['product'] as String?,
-  payment: json['payment'] as String?,
-  groupId: (json['group_id'] as num?)?.toInt(),
+  price: json['price'] as String?,
+  groupId: (json['groupId'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$PaymentIntentMetadataToJson(
   PaymentIntentMetadata instance,
 ) => <String, dynamic>{
   'product': ?instance.product,
-  'payment': ?instance.payment,
-  'group_id': ?instance.groupId,
+  'price': ?instance.price,
+  'groupId': ?instance.groupId,
 };
 
 PaymentIntentData _$PaymentIntentDataFromJson(Map<String, dynamic> json) =>
@@ -2016,11 +2016,11 @@ Map<String, dynamic> _$PaymentIntentDataToJson(
 
 SubscriptionMetadata _$SubscriptionMetadataFromJson(
   Map<String, dynamic> json,
-) => SubscriptionMetadata(groupId: (json['group_id'] as num?)?.toInt());
+) => SubscriptionMetadata(groupId: (json['groupId'] as num?)?.toInt());
 
 Map<String, dynamic> _$SubscriptionMetadataToJson(
   SubscriptionMetadata instance,
-) => <String, dynamic>{'group_id': ?instance.groupId};
+) => <String, dynamic>{'groupId': ?instance.groupId};
 
 SubscriptionData _$SubscriptionDataFromJson(
   Map<String, dynamic> json,

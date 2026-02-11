@@ -262,12 +262,13 @@ class TransferData {
 @JsonSerializable()
 class PaymentIntentMetadata {
   final String? product;
-  final String? payment;
+  final String? price;
+  @JsonKey(name: 'groupId')
   final int? groupId;
 
   PaymentIntentMetadata({
     this.product,
-    this.payment,
+    this.price,
     this.groupId,
   });
 
@@ -301,6 +302,7 @@ class PaymentIntentData {
 
 @JsonSerializable()
 class SubscriptionMetadata {
+  @JsonKey(name: 'groupId')
   final int? groupId;
 
   SubscriptionMetadata({
