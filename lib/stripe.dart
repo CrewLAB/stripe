@@ -7,6 +7,7 @@ import 'src/resources/balance_transaction.dart';
 import 'src/resources/charge.dart';
 import 'src/resources/checkout_session.dart';
 import 'src/resources/customer.dart';
+import 'src/resources/invoice.dart';
 import 'src/resources/payment_intent.dart';
 import 'src/resources/portal_session.dart';
 import 'src/resources/price.dart';
@@ -44,6 +45,9 @@ class Stripe {
   /// https://stripe.com/docs/api/refunds
   final RefundResource refund;
 
+  /// https://stripe.com/docs/api/invoices
+  final InvoiceResource invoice;
+
   /// https://stripe.com/docs/api/payment_intents
   final PaymentIntentResource paymentIntent;
 
@@ -73,6 +77,7 @@ class Stripe {
         portalSession = PortalSessionResource(client),
         customer = CustomerResource(client),
         refund = RefundResource(client),
+        invoice = InvoiceResource(client),
         paymentIntent = PaymentIntentResource(client),
         price = PriceResource(client),
         product = ProductResource(client),
