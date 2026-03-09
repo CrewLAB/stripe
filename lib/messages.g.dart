@@ -2195,6 +2195,29 @@ Map<String, dynamic> _$CreateRefundRequestToJson(
   'reason': ?instance.reason,
 };
 
+ListInvoicesRequest _$ListInvoicesRequestFromJson(Map<String, dynamic> json) =>
+    ListInvoicesRequest(
+      customer: json['customer'] as String?,
+      status: $enumDecodeNullable(_$InvoiceStatusEnumMap, json['status']),
+      subscription: json['subscription'] as String?,
+    );
+
+Map<String, dynamic> _$ListInvoicesRequestToJson(
+  ListInvoicesRequest instance,
+) => <String, dynamic>{
+  'customer': ?instance.customer,
+  'status': ?_$InvoiceStatusEnumMap[instance.status],
+  'subscription': ?instance.subscription,
+};
+
+ListPaymentIntentsRequest _$ListPaymentIntentsRequestFromJson(
+  Map<String, dynamic> json,
+) => ListPaymentIntentsRequest(customer: json['customer'] as String?);
+
+Map<String, dynamic> _$ListPaymentIntentsRequestToJson(
+  ListPaymentIntentsRequest instance,
+) => <String, dynamic>{'customer': ?instance.customer};
+
 ListPricesRequest _$ListPricesRequestFromJson(Map<String, dynamic> json) =>
     ListPricesRequest(
       active: json['active'] as bool?,

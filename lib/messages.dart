@@ -24,6 +24,8 @@ part 'src/messages/requests/create_portal_session.dart';
 part 'src/messages/requests/create_product.dart';
 part 'src/messages/requests/create_price.dart';
 part 'src/messages/requests/create_refund.dart';
+part 'src/messages/requests/list_invoices.dart';
+part 'src/messages/requests/list_payment_intents.dart';
 part 'src/messages/requests/list_prices.dart';
 part 'src/messages/requests/list_products.dart';
 part 'src/messages/requests/list_subscriptions.dart';
