@@ -1630,6 +1630,7 @@ PaymentIntent _$PaymentIntentFromJson(Map<String, dynamic> json) =>
       ),
       customer: json['customer'] as String?,
       description: json['description'] as String?,
+      invoice: const ExpandableInvoiceConverter().fromJson(json['invoice']),
       latestCharge: json['latest_charge'] as String?,
       metadata: json['metadata'] as Map<String, dynamic>?,
       paymentMethod: json['payment_method'] as String?,
@@ -1671,6 +1672,7 @@ Map<String, dynamic> _$PaymentIntentToJson(
   ),
   'customer': ?instance.customer,
   'description': ?instance.description,
+  'invoice': ?const ExpandableInvoiceConverter().toJson(instance.invoice),
   'latest_charge': ?instance.latestCharge,
   'metadata': ?instance.metadata,
   'payment_method': ?instance.paymentMethod,
@@ -2212,11 +2214,17 @@ Map<String, dynamic> _$ListInvoicesRequestToJson(
 
 ListPaymentIntentsRequest _$ListPaymentIntentsRequestFromJson(
   Map<String, dynamic> json,
-) => ListPaymentIntentsRequest(customer: json['customer'] as String?);
+) => ListPaymentIntentsRequest(
+  customer: json['customer'] as String?,
+  expand: (json['expand'] as List<dynamic>?)?.map((e) => e as String).toList(),
+);
 
 Map<String, dynamic> _$ListPaymentIntentsRequestToJson(
   ListPaymentIntentsRequest instance,
-) => <String, dynamic>{'customer': ?instance.customer};
+) => <String, dynamic>{
+  'customer': ?instance.customer,
+  'expand': ?instance.expand,
+};
 
 ListPricesRequest _$ListPricesRequestFromJson(Map<String, dynamic> json) =>
     ListPricesRequest(
