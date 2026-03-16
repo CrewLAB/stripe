@@ -2217,6 +2217,9 @@ ListPaymentIntentsRequest _$ListPaymentIntentsRequestFromJson(
 ) => ListPaymentIntentsRequest(
   customer: json['customer'] as String?,
   expand: (json['expand'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  limit: (json['limit'] as num?)?.toInt(),
+  startingAfter: json['starting_after'] as String?,
+  endingBefore: json['ending_before'] as String?,
 );
 
 Map<String, dynamic> _$ListPaymentIntentsRequestToJson(
@@ -2224,6 +2227,9 @@ Map<String, dynamic> _$ListPaymentIntentsRequestToJson(
 ) => <String, dynamic>{
   'customer': ?instance.customer,
   'expand': ?instance.expand,
+  'limit': ?instance.limit,
+  'starting_after': ?instance.startingAfter,
+  'ending_before': ?instance.endingBefore,
 };
 
 ListPricesRequest _$ListPricesRequestFromJson(Map<String, dynamic> json) =>
