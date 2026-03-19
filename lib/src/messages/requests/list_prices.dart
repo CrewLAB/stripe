@@ -13,10 +13,21 @@ class ListPricesRequest {
   /// Only return prices for the given product.
   final String? product;
 
+  /// A limit on the number of objects to be returned. Limit can range between
+  /// 1 and 100, and the default is 10.
+  final int? limit;
+
+  /// A cursor for use in pagination. `starting_after` is an object ID that
+  /// defines your place in the list.
+  @JsonKey(name: 'starting_after')
+  final String? startingAfter;
+
   ListPricesRequest({
     this.active,
     this.currency,
     this.product,
+    this.limit,
+    this.startingAfter,
   });
 
   factory ListPricesRequest.fromJson(Map<String, dynamic> json) =>

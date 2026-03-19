@@ -2237,6 +2237,8 @@ ListPricesRequest _$ListPricesRequestFromJson(Map<String, dynamic> json) =>
       active: json['active'] as bool?,
       currency: json['currency'] as String?,
       product: json['product'] as String?,
+      limit: (json['limit'] as num?)?.toInt(),
+      startingAfter: json['starting_after'] as String?,
     );
 
 Map<String, dynamic> _$ListPricesRequestToJson(ListPricesRequest instance) =>
@@ -2244,14 +2246,24 @@ Map<String, dynamic> _$ListPricesRequestToJson(ListPricesRequest instance) =>
       'active': ?instance.active,
       'currency': ?instance.currency,
       'product': ?instance.product,
+      'limit': ?instance.limit,
+      'starting_after': ?instance.startingAfter,
     };
 
 ListProductsRequest _$ListProductsRequestFromJson(Map<String, dynamic> json) =>
-    ListProductsRequest(active: json['active'] as bool?);
+    ListProductsRequest(
+      active: json['active'] as bool?,
+      limit: (json['limit'] as num?)?.toInt(),
+      startingAfter: json['starting_after'] as String?,
+    );
 
 Map<String, dynamic> _$ListProductsRequestToJson(
   ListProductsRequest instance,
-) => <String, dynamic>{'active': ?instance.active};
+) => <String, dynamic>{
+  'active': ?instance.active,
+  'limit': ?instance.limit,
+  'starting_after': ?instance.startingAfter,
+};
 
 ListSubscriptionsRequest _$ListSubscriptionsRequestFromJson(
   Map<String, dynamic> json,
