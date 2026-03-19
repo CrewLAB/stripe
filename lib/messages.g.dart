@@ -2259,6 +2259,8 @@ ListSubscriptionsRequest _$ListSubscriptionsRequestFromJson(
   customer: json['customer'] as String?,
   price: json['price'] as String?,
   status: $enumDecodeNullable(_$SubscriptionStatusEnumMap, json['status']),
+  limit: (json['limit'] as num?)?.toInt(),
+  startingAfter: json['starting_after'] as String?,
 );
 
 Map<String, dynamic> _$ListSubscriptionsRequestToJson(
@@ -2267,6 +2269,8 @@ Map<String, dynamic> _$ListSubscriptionsRequestToJson(
   'customer': ?instance.customer,
   'price': ?instance.price,
   'status': ?_$SubscriptionStatusEnumMap[instance.status],
+  'limit': ?instance.limit,
+  'starting_after': ?instance.startingAfter,
 };
 
 const _$SubscriptionStatusEnumMap = {
