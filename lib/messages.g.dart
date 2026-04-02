@@ -2377,6 +2377,7 @@ Subscription _$SubscriptionFromJson(Map<String, dynamic> json) => Subscription(
   currentPeriodEnd: const TimestampConverter().fromJson(
     (json['current_period_end'] as num).toInt(),
   ),
+  cancelAtPeriodEnd: json['cancel_at_period_end'] as bool,
   collectionMethod: $enumDecodeNullable(
     _$SubscriptionCollectionMethodEnumMap,
     json['collection_method'],
@@ -2401,6 +2402,7 @@ Map<String, dynamic> _$SubscriptionToJson(Subscription instance) =>
       'status': _$SubscriptionStatusEnumMap[instance.status]!,
       'items': instance.items.toJson((value) => value.toJson()),
       'metadata': ?instance.metadata,
+      'cancel_at_period_end': instance.cancelAtPeriodEnd,
     };
 
 const _$_SubscriptionObjectEnumMap = {
