@@ -92,6 +92,12 @@ class Subscription extends Message {
   /// format.
   final Map<String, dynamic>? metadata;
 
+  /// If the subscription has been canceled with the at_period_end flag set to
+  /// true, cancel_at_period_end on the subscription will be true. You can use
+  /// this attribute to determine whether a subscription that has a status of
+  /// active is scheduled to be canceled at the end of the current period.
+  final bool cancelAtPeriodEnd;
+
   Subscription({
     required this.object,
     required this.id,
@@ -101,6 +107,7 @@ class Subscription extends Message {
     required this.items,
     required this.currentPeriodStart,
     required this.currentPeriodEnd,
+    required this.cancelAtPeriodEnd,
     this.collectionMethod,
     this.metadata,
   });
