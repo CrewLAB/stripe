@@ -12,7 +12,7 @@ class PaymentIntent extends Message {
   final int amount;
   final int amountReceived;
   final AutomaticPaymentMethods automaticPaymentMethods;
-  final String clientSecret;
+  final String? clientSecret;
   final String currency;
   final String status;
   @TimestampConverter()
@@ -38,7 +38,7 @@ class PaymentIntent extends Message {
     required this.id,
     required this.amount,
     required this.amountReceived,
-    required this.clientSecret,
+    this.clientSecret,
     required this.currency,
     required this.status,
     this.automaticPaymentMethods = const AutomaticPaymentMethods(),

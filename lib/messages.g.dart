@@ -1612,7 +1612,7 @@ PaymentIntent _$PaymentIntentFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       amount: (json['amount'] as num).toInt(),
       amountReceived: (json['amount_received'] as num).toInt(),
-      clientSecret: json['client_secret'] as String,
+      clientSecret: json['client_secret'] as String?,
       currency: json['currency'] as String,
       status: json['status'] as String,
       automaticPaymentMethods: json['automatic_payment_methods'] == null
