@@ -950,6 +950,32 @@ Map<String, dynamic> _$DataListToJson<T>(
 
 const _$_SubListObjectEnumMap = {_SubListObject.list: 'list'};
 
+SearchResult<T> _$SearchResultFromJson<T>(
+  Map<String, dynamic> json,
+  T Function(Object? json) fromJsonT,
+) => SearchResult<T>(
+  object: $enumDecode(_$_SearchResultObjectEnumMap, json['object']),
+  data: (json['data'] as List<dynamic>).map(fromJsonT).toList(),
+  hasMore: json['has_more'] as bool,
+  url: json['url'] as String,
+  nextPage: json['next_page'] as String?,
+);
+
+Map<String, dynamic> _$SearchResultToJson<T>(
+  SearchResult<T> instance,
+  Object? Function(T value) toJsonT,
+) => <String, dynamic>{
+  'object': _$_SearchResultObjectEnumMap[instance.object]!,
+  'data': instance.data.map(toJsonT).toList(),
+  'has_more': instance.hasMore,
+  'url': instance.url,
+  'next_page': ?instance.nextPage,
+};
+
+const _$_SearchResultObjectEnumMap = {
+  _SearchResultObject.searchResult: 'search_result',
+};
+
 EventData<T> _$EventDataFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
@@ -1659,7 +1685,7 @@ Map<String, dynamic> _$PaymentIntentToJson(
   'amount': instance.amount,
   'amount_received': instance.amountReceived,
   'automatic_payment_methods': instance.automaticPaymentMethods.toJson(),
-  'client_secret': instance.clientSecret,
+  'client_secret': ?instance.clientSecret,
   'currency': instance.currency,
   'status': instance.status,
   'canceled_at': ?_$JsonConverterToJson<int, DateTime>(
@@ -2230,6 +2256,22 @@ Map<String, dynamic> _$ListPaymentIntentsRequestToJson(
   'limit': ?instance.limit,
   'starting_after': ?instance.startingAfter,
   'ending_before': ?instance.endingBefore,
+};
+
+SearchPaymentIntentsRequest _$SearchPaymentIntentsRequestFromJson(
+  Map<String, dynamic> json,
+) => SearchPaymentIntentsRequest(
+  query: json['query'] as String,
+  limit: (json['limit'] as num?)?.toInt(),
+  page: json['page'] as String?,
+);
+
+Map<String, dynamic> _$SearchPaymentIntentsRequestToJson(
+  SearchPaymentIntentsRequest instance,
+) => <String, dynamic>{
+  'query': instance.query,
+  'limit': ?instance.limit,
+  'page': ?instance.page,
 };
 
 ListPricesRequest _$ListPricesRequestFromJson(Map<String, dynamic> json) =>

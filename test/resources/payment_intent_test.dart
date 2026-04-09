@@ -7,6 +7,8 @@ import 'package:stripe/messages.dart'
         Address,
         AutomaticPaymentMethods,
         PaymentMethodType,
+        SearchPaymentIntentsRequest,
+        SearchResult,
         SetupFutureUsage,
         ShippingSpecification;
 import 'package:stripe/src/client.dart';
@@ -77,8 +79,88 @@ void main() {
       expect(response.statementDescriptor, 'super best codez');
       expect(response.statementDescriptorSuffix, 'for u!');
     });
+
+    test('search returns decoded results with pagination cursor', () async {
+      final request = SearchPaymentIntentsRequest(
+        query: 'status:"succeeded" AND amount>1000',
+        limit: 5,
+      );
+
+      client.dio.interceptors.add(InterceptorsWrapper(
+        onRequest: (options, handler) {
+          expect(options.uri.path, '/payment_intents/search');
+          expect(options.method, 'GET');
+          expect(options.queryParameters, request.toJson());
+          handler.resolve(Response(
+            requestOptions: options,
+            data: jsonDecode(searchPaymentIntentsResponse),
+            statusCode: HttpStatus.ok,
+          ));
+        },
+      ));
+
+      final response = await paymentIntentResource.search(request);
+
+      expect(response, isA<SearchResult<dynamic>>());
+      expect(response.url, '/v1/payment_intents/search'); // Stripe returns this in the response body
+      expect(response.hasMore, isTrue);
+      expect(response.nextPage, 'some_cursor_string');
+      expect(response.data.length, 1);
+      expect(response.data.first.id, 'pi_1EUqMaAA7oWz99nSFM4ANx6C');
+      expect(response.data.first.amount, 1099);
+      expect(response.data.first.status, 'succeeded');
+    });
   });
 }
+
+const searchPaymentIntentsResponse = r'''
+{
+  "object": "search_result",
+  "url": "/v1/payment_intents/search",
+  "has_more": true,
+  "next_page": "some_cursor_string",
+  "data": [
+    {
+      "id": "pi_1EUqMaAA7oWz99nSFM4ANx6C",
+      "object": "payment_intent",
+      "amount": 1099,
+      "amount_capturable": 0,
+      "amount_received": 999,
+      "automatic_payment_methods": { "enabled": true },
+      "application": null,
+      "application_fee_amount": null,
+      "canceled_at": null,
+      "cancellation_reason": null,
+      "capture_method": "automatic",
+      "client_secret": "pi_1EUqMaAA7oWz99nSFM4ANx6C_secret_5jzNKjsCSxoL7BNOm1Hg9DFX1",
+      "confirmation_method": "automatic",
+      "created": 1556609212,
+      "currency": "usd",
+      "customer": null,
+      "description": null,
+      "invoice": null,
+      "last_payment_error": null,
+      "latest_charge": null,
+      "livemode": false,
+      "metadata": {},
+      "next_action": null,
+      "on_behalf_of": null,
+      "payment_method": null,
+      "payment_method_options": {},
+      "payment_method_types": ["card"],
+      "receipt_email": null,
+      "review": null,
+      "setup_future_usage": null,
+      "shipping": null,
+      "statement_descriptor": null,
+      "statement_descriptor_suffix": null,
+      "status": "succeeded",
+      "transfer_data": null,
+      "transfer_group": null
+    }
+  ]
+}
+''';
 
 const createSessionResponse = r'''
 {
