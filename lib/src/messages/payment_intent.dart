@@ -22,7 +22,7 @@ class PaymentIntent extends Message {
   final String? customer;
   final String? description;
   @ExpandableInvoiceConverter()
-  final Invoice? invoice;
+  final Expandable<Invoice>? invoice;
   final String? latestCharge;
   final Map<String, dynamic>? metadata;
   final String? paymentMethod;

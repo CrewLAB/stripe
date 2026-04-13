@@ -420,6 +420,9 @@ class Invoice extends Message {
   /// ID of the Connect Application that created the invoice.
   final String? application;
 
+  /// ID of the latest charge generated for this invoice.
+  final String? charge;
+
   /// Number of payment attempts made for this invoice.
   @JsonKey(name: 'attempt_count')
   final int attemptCount;
@@ -557,6 +560,18 @@ class Invoice extends Message {
   @JsonKey(name: 'on_behalf_of')
   final String? onBehalfOf;
 
+  /// Whether payment was successfully collected for this invoice.
+  final bool paid;
+
+  /// Returns true if the invoice was manually marked paid out of band.
+  @JsonKey(name: 'paid_out_of_band')
+  final bool paidOutOfBand;
+
+  /// The PaymentIntent associated with this invoice.
+  @JsonKey(name: 'payment_intent')
+  @ExpandablePaymentIntentConverter()
+  final Expandable<PaymentIntent>? paymentIntent;
+
   /// Configuration settings for the PaymentIntent.
   @JsonKey(name: 'payment_settings')
   final InvoicePaymentSettings paymentSettings;
@@ -636,6 +651,7 @@ class Invoice extends Message {
     required this.amountRemaining,
     required this.amountShipping,
     this.application,
+    this.charge,
     required this.attemptCount,
     required this.attempted,
     required this.autoAdvance,
@@ -672,6 +688,9 @@ class Invoice extends Message {
     this.nextPaymentAttempt,
     this.number,
     this.onBehalfOf,
+    required this.paid,
+    required this.paidOutOfBand,
+    this.paymentIntent,
     required this.paymentSettings,
     required this.periodEnd,
     required this.periodStart,

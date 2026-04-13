@@ -14,17 +14,44 @@ class TimestampConverter implements JsonConverter<DateTime, int> {
 
 /// Handles Stripe's expandable invoice field, which is either a string ID
 /// (not expanded) or a full Invoice object (expanded via expand[]).
-class ExpandableInvoiceConverter implements JsonConverter<Invoice?, dynamic> {
+/// The [id] is always preserved regardless of expansion state.
+class ExpandableInvoiceConverter
+    implements JsonConverter<Expandable<Invoice>?, dynamic> {
   const ExpandableInvoiceConverter();
 
   @override
-  Invoice? fromJson(dynamic json) {
+  Expandable<Invoice>? fromJson(dynamic json) {
+    if (json == null) return null;
+    if (json is String) return Expandable(json);
     if (json is Map<String, dynamic>) {
-      return Invoice.fromJson(json);
+      final invoice = Invoice.fromJson(json);
+      return Expandable(invoice.id, invoice);
     }
-    return null; // It's a string ID — not expanded, ignore
+    return null;
   }
 
   @override
-  dynamic toJson(Invoice? invoice) => invoice?.id;
+  dynamic toJson(Expandable<Invoice>? value) => value?.id;
+}
+
+/// Handles Stripe's expandable payment_intent field, which is either a string ID
+/// (not expanded) or a full PaymentIntent object (expanded via expand[]).
+/// The [id] is always preserved regardless of expansion state.
+class ExpandablePaymentIntentConverter
+    implements JsonConverter<Expandable<PaymentIntent>?, dynamic> {
+  const ExpandablePaymentIntentConverter();
+
+  @override
+  Expandable<PaymentIntent>? fromJson(dynamic json) {
+    if (json == null) return null;
+    if (json is String) return Expandable(json);
+    if (json is Map<String, dynamic>) {
+      final pi = PaymentIntent.fromJson(json);
+      return Expandable(pi.id, pi);
+    }
+    return null;
+  }
+
+  @override
+  dynamic toJson(Expandable<PaymentIntent>? value) => value?.id;
 }

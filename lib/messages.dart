@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'messages.g.dart';
 part 'src/messages/converters.dart';
 part 'src/messages/_message.dart';
+part 'src/messages/expandable.dart';
 part 'src/messages/address.dart';
 part 'src/messages/balance_transaction.dart';
 part 'src/messages/charge.dart';
