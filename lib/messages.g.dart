@@ -2365,6 +2365,55 @@ Map<String, dynamic> _$UpdateCustomerRequestToJson(
   'id': instance.id,
 };
 
+UpdatePaymentIntentRequest _$UpdatePaymentIntentRequestFromJson(
+  Map<String, dynamic> json,
+) => UpdatePaymentIntentRequest(
+  id: json['id'] as String,
+  amount: (json['amount'] as num?)?.toInt(),
+  currency: json['currency'] as String?,
+  customer: json['customer'] as String?,
+  description: json['description'] as String?,
+  metadata: (json['metadata'] as Map<String, dynamic>?)?.map(
+    (k, e) => MapEntry(k, e as String),
+  ),
+  paymentMethod: json['payment_method'] as String?,
+  paymentMethodTypes: (json['payment_method_types'] as List<dynamic>?)
+      ?.map((e) => $enumDecode(_$PaymentMethodTypeEnumMap, e))
+      .toSet(),
+  receiptEmail: json['receipt_email'] as String?,
+  setupFutureUsage: $enumDecodeNullable(
+    _$SetupFutureUsageEnumMap,
+    json['setup_future_usage'],
+  ),
+  shipping: json['shipping'] == null
+      ? null
+      : ShippingSpecification.fromJson(
+          json['shipping'] as Map<String, dynamic>,
+        ),
+  statementDescriptor: json['statement_descriptor'] as String?,
+  statementDescriptorSuffix: json['statement_descriptor_suffix'] as String?,
+);
+
+Map<String, dynamic> _$UpdatePaymentIntentRequestToJson(
+  UpdatePaymentIntentRequest instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'amount': ?instance.amount,
+  'currency': ?instance.currency,
+  'customer': ?instance.customer,
+  'description': ?instance.description,
+  'metadata': ?instance.metadata,
+  'payment_method': ?instance.paymentMethod,
+  'payment_method_types': ?instance.paymentMethodTypes
+      ?.map((e) => _$PaymentMethodTypeEnumMap[e]!)
+      .toList(),
+  'receipt_email': ?instance.receiptEmail,
+  'setup_future_usage': ?_$SetupFutureUsageEnumMap[instance.setupFutureUsage],
+  'shipping': ?instance.shipping?.toJson(),
+  'statement_descriptor': ?instance.statementDescriptor,
+  'statement_descriptor_suffix': ?instance.statementDescriptorSuffix,
+};
+
 UpdatePriceRequest _$UpdatePriceRequestFromJson(Map<String, dynamic> json) =>
     UpdatePriceRequest(
       id: json['id'] as String,
