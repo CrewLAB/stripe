@@ -9,6 +9,7 @@ enum SessionMode {
 
   /// Use Stripe Billing to set up fixed-price subscriptions.
   subscription,
+  unknown,
 }
 
 enum BillingAddressCollection {
@@ -17,6 +18,7 @@ enum BillingAddressCollection {
 
   /// Checkout will always collect the customer’s billing address.
   required,
+  unknown,
 }
 
 /// https://stripe.com/docs/api/checkout/sessions/create
@@ -34,6 +36,7 @@ class CreateCheckoutSessionRequest {
   /// The mode of the Checkout Session. Required when using prices or setup
   /// mode. Pass subscription if the Checkout Session includes at least one
   /// recurring item.
+  @JsonKey(unknownEnumValue: SessionMode.unknown)
   final SessionMode? mode;
 
   /// A list of the types of payment methods (e.g., card) this Checkout Session
@@ -76,6 +79,7 @@ class CreateCheckoutSessionRequest {
   final List<LineItem>? lineItems;
 
   /// Specify whether Checkout should collect the customer’s billing address.
+  @JsonKey(unknownEnumValue: BillingAddressCollection.unknown)
   final BillingAddressCollection? billingAddressCollection;
 
   /// Settings for automatic tax lookup for this session and resulting payments,
@@ -238,6 +242,7 @@ enum SetupFutureUsage {
   /// checkout flow.
   // ignore: constant_identifier_names
   off_session,
+  unknown,
 }
 
 @JsonSerializable()
@@ -280,6 +285,7 @@ class PaymentIntentMetadata {
 @JsonSerializable()
 class PaymentIntentData {
   final String? receiptEmail;
+  @JsonKey(unknownEnumValue: SetupFutureUsage.unknown)
   final SetupFutureUsage? setupFutureUsage;
   final int? applicationFeeAmount;
   final PaymentIntentMetadata? metadata;

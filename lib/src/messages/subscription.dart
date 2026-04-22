@@ -15,6 +15,7 @@ enum SubscriptionStatus {
   // Only available for requests:
   all,
   ended,
+  unknown,
 }
 
 /// Collection method for subscriptions
@@ -23,6 +24,7 @@ enum SubscriptionCollectionMethod {
   charge_automatically,
   // ignore: constant_identifier_names
   send_invoice,
+  unknown,
 }
 
 /// https://stripe.com/docs/api/subscriptions/object
@@ -53,7 +55,7 @@ class Subscription extends Message {
   /// Stripe will attempt to pay this subscription at the end of the cycle using
   /// the default source attached to the customer. When sending an invoice,
   /// Stripe will email your customer an invoice with payment instructions.
-  @JsonKey(name: 'collection_method')
+  @JsonKey(name: 'collection_method', unknownEnumValue: SubscriptionCollectionMethod.unknown)
   final SubscriptionCollectionMethod? collectionMethod;
 
   /// Possible values are incomplete, incomplete_expired, trialing, active,
@@ -82,6 +84,7 @@ class Subscription extends Message {
   /// attempted (invoices will be created, but then immediately automatically
   /// closed). After receiving updated payment information from a customer, you
   /// may choose to reopen and pay their closed invoices.
+  @JsonKey(unknownEnumValue: SubscriptionStatus.unknown)
   final SubscriptionStatus status;
 
   /// List of subscription items, each with an attached price.

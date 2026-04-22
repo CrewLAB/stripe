@@ -114,7 +114,11 @@ Map<String, dynamic> _$PaymentMethodDetailsCardToJson(
 
 Liability _$LiabilityFromJson(Map<String, dynamic> json) => Liability(
   account: json['account'] as String?,
-  type: $enumDecode(_$LiabilityTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$LiabilityTypeEnumMap,
+    json['type'],
+    unknownValue: LiabilityType.unknown,
+  ),
 );
 
 Map<String, dynamic> _$LiabilityToJson(Liability instance) => <String, dynamic>{
@@ -125,6 +129,7 @@ Map<String, dynamic> _$LiabilityToJson(Liability instance) => <String, dynamic>{
 const _$LiabilityTypeEnumMap = {
   LiabilityType.account: 'account',
   LiabilityType.self: 'self',
+  LiabilityType.unknown: 'unknown',
 };
 
 AutomaticTaxResponse _$AutomaticTaxResponseFromJson(
@@ -134,7 +139,11 @@ AutomaticTaxResponse _$AutomaticTaxResponseFromJson(
   liability: json['liability'] == null
       ? null
       : Liability.fromJson(json['liability'] as Map<String, dynamic>),
-  status: $enumDecodeNullable(_$AutomaticTaxStatusEnumMap, json['status']),
+  status: $enumDecodeNullable(
+    _$AutomaticTaxStatusEnumMap,
+    json['status'],
+    unknownValue: AutomaticTaxStatus.unknown,
+  ),
 );
 
 Map<String, dynamic> _$AutomaticTaxResponseToJson(
@@ -149,6 +158,7 @@ const _$AutomaticTaxStatusEnumMap = {
   AutomaticTaxStatus.complete: 'complete',
   AutomaticTaxStatus.failed: 'failed',
   AutomaticTaxStatus.requires_location_inputs: 'requires_location_inputs',
+  AutomaticTaxStatus.unknown: 'unknown',
 };
 
 TotalDetails _$TotalDetailsFromJson(Map<String, dynamic> json) => TotalDetails(
@@ -210,7 +220,11 @@ Map<String, dynamic> _$CustomTextToJson(
 
 Issuer _$IssuerFromJson(Map<String, dynamic> json) => Issuer(
   account: json['account'] as String?,
-  type: $enumDecode(_$LiabilityTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$LiabilityTypeEnumMap,
+    json['type'],
+    unknownValue: LiabilityType.unknown,
+  ),
 );
 
 Map<String, dynamic> _$IssuerToJson(Issuer instance) => <String, dynamic>{
@@ -223,6 +237,7 @@ RenderingOptions _$RenderingOptionsFromJson(Map<String, dynamic> json) =>
       amountTaxDisplay: $enumDecodeNullable(
         _$AmountTaxDisplayEnumMap,
         json['amount_tax_display'],
+        unknownValue: AmountTaxDisplay.unknown,
       ),
       template: json['template'] as String?,
     );
@@ -237,6 +252,7 @@ Map<String, dynamic> _$RenderingOptionsToJson(
 const _$AmountTaxDisplayEnumMap = {
   AmountTaxDisplay.exclude_tax: 'exclude_tax',
   AmountTaxDisplay.include_inclusive_tax: 'include_inclusive_tax',
+  AmountTaxDisplay.unknown: 'unknown',
 };
 
 InvoiceData _$InvoiceDataFromJson(Map<String, dynamic> json) => InvoiceData(
@@ -285,7 +301,11 @@ Map<String, dynamic> _$InvoiceCreationToJson(InvoiceCreation instance) =>
     };
 
 TaxId _$TaxIdFromJson(Map<String, dynamic> json) => TaxId(
-  type: $enumDecode(_$TaxIdTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$TaxIdTypeEnumMap,
+    json['type'],
+    unknownValue: TaxIdType.unknown,
+  ),
   value: json['value'] as String?,
 );
 
@@ -380,7 +400,11 @@ CustomerDetails _$CustomerDetailsFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String?,
       name: json['name'] as String?,
       phone: json['phone'] as String?,
-      taxExempt: $enumDecodeNullable(_$TaxExemptEnumMap, json['tax_exempt']),
+      taxExempt: $enumDecodeNullable(
+        _$TaxExemptEnumMap,
+        json['tax_exempt'],
+        unknownValue: TaxExempt.unknown,
+      ),
       taxIds: (json['tax_ids'] as List<dynamic>?)
           ?.map((e) => TaxId.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -400,6 +424,7 @@ const _$TaxExemptEnumMap = {
   TaxExempt.exempt: 'exempt',
   TaxExempt.none: 'none',
   TaxExempt.reverse: 'reverse',
+  TaxExempt.unknown: 'unknown',
 };
 
 Recovery _$RecoveryFromJson(Map<String, dynamic> json) => Recovery(
@@ -442,6 +467,7 @@ PaymentMethodReuseAgreement _$PaymentMethodReuseAgreementFromJson(
   position: $enumDecode(
     _$PaymentMethodReuseAgreementPositionEnumMap,
     json['position'],
+    unknownValue: PaymentMethodReuseAgreementPosition.unknown,
   ),
 );
 
@@ -454,6 +480,7 @@ Map<String, dynamic> _$PaymentMethodReuseAgreementToJson(
 const _$PaymentMethodReuseAgreementPositionEnumMap = {
   PaymentMethodReuseAgreementPosition.auto: 'auto',
   PaymentMethodReuseAgreementPosition.hidden: 'hidden',
+  PaymentMethodReuseAgreementPosition.unknown: 'unknown',
 };
 
 ConsentCollection _$ConsentCollectionFromJson(Map<String, dynamic> json) =>
@@ -467,10 +494,12 @@ ConsentCollection _$ConsentCollectionFromJson(Map<String, dynamic> json) =>
       promotions: $enumDecodeNullable(
         _$ConsentCollectionPromotionsEnumMap,
         json['promotions'],
+        unknownValue: ConsentCollectionPromotions.unknown,
       ),
       termsOfService: $enumDecodeNullable(
         _$ConsentCollectionTermsOfServiceEnumMap,
         json['terms_of_service'],
+        unknownValue: ConsentCollectionTermsOfService.unknown,
       ),
     );
 
@@ -486,11 +515,13 @@ Map<String, dynamic> _$ConsentCollectionToJson(ConsentCollection instance) =>
 const _$ConsentCollectionPromotionsEnumMap = {
   ConsentCollectionPromotions.auto: 'auto',
   ConsentCollectionPromotions.none: 'none',
+  ConsentCollectionPromotions.unknown: 'unknown',
 };
 
 const _$ConsentCollectionTermsOfServiceEnumMap = {
   ConsentCollectionTermsOfService.none: 'none',
   ConsentCollectionTermsOfService.required: 'required',
+  ConsentCollectionTermsOfService.unknown: 'unknown',
 };
 
 CustomFieldDropdownOption _$CustomFieldDropdownOptionFromJson(
@@ -578,7 +609,11 @@ CustomField _$CustomFieldFromJson(Map<String, dynamic> json) => CustomField(
   text: json['text'] == null
       ? null
       : CustomFieldText.fromJson(json['text'] as Map<String, dynamic>),
-  type: $enumDecode(_$CustomFieldTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$CustomFieldTypeEnumMap,
+    json['type'],
+    unknownValue: CustomFieldType.unknown,
+  ),
 );
 
 Map<String, dynamic> _$CustomFieldToJson(CustomField instance) =>
@@ -596,6 +631,7 @@ const _$CustomFieldTypeEnumMap = {
   CustomFieldType.dropdown: 'dropdown',
   CustomFieldType.numeric: 'numeric',
   CustomFieldType.text: 'text',
+  CustomFieldType.unknown: 'unknown',
 };
 
 ShippingAddressCollection _$ShippingAddressCollectionFromJson(
@@ -693,6 +729,7 @@ CheckoutSession _$CheckoutSessionFromJson(
   billingAddressCollection: $enumDecodeNullable(
     _$BillingAddressCollectionEnumMap,
     json['billing_address_collection'],
+    unknownValue: BillingAddressCollection.unknown,
   ),
   cancelUrl: json['cancel_url'] as String?,
   clientReferenceId: json['client_reference_id'] as String?,
@@ -710,6 +747,7 @@ CheckoutSession _$CheckoutSessionFromJson(
   customerCreation: $enumDecodeNullable(
     _$CustomerCreationEnumMap,
     json['customer_creation'],
+    unknownValue: CustomerCreation.unknown,
   ),
   customerDetails: json['customer_details'] == null
       ? null
@@ -733,17 +771,23 @@ CheckoutSession _$CheckoutSessionFromJson(
   livemode: json['livemode'] as bool?,
   locale: json['locale'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
-  mode: $enumDecodeNullable(_$SessionModeEnumMap, json['mode']),
+  mode: $enumDecodeNullable(
+    _$SessionModeEnumMap,
+    json['mode'],
+    unknownValue: SessionMode.unknown,
+  ),
   paymentIntent: json['payment_intent'] as String?,
   paymentLink: json['payment_link'] as String?,
   paymentMethodCollection: $enumDecodeNullable(
     _$PaymentMethodCollectionEnumMap,
     json['payment_method_collection'],
+    unknownValue: PaymentMethodCollection.unknown,
   ),
   paymentMethodOptions: json['payment_method_options'] as Map<String, dynamic>?,
   paymentStatus: $enumDecodeNullable(
     _$PaymentStatusEnumMap,
     json['payment_status'],
+    unknownValue: PaymentStatus.unknown,
   ),
   phoneNumberCollection: json['phone_number_collection'] == null
       ? null
@@ -768,8 +812,16 @@ CheckoutSession _$CheckoutSessionFromJson(
   shippingOptions: (json['shipping_options'] as List<dynamic>?)
       ?.map((e) => ShippingOption.fromJson(e as Map<String, dynamic>))
       .toList(),
-  status: $enumDecodeNullable(_$CheckoutSessionStatusEnumMap, json['status']),
-  submitType: $enumDecodeNullable(_$SubmitTypeEnumMap, json['submit_type']),
+  status: $enumDecodeNullable(
+    _$CheckoutSessionStatusEnumMap,
+    json['status'],
+    unknownValue: CheckoutSessionStatus.unknown,
+  ),
+  submitType: $enumDecodeNullable(
+    _$SubmitTypeEnumMap,
+    json['submit_type'],
+    unknownValue: SubmitType.unknown,
+  ),
   subscription: json['subscription'] as String?,
   successUrl: json['success_url'] as String?,
   totalDetails: json['total_details'] == null
@@ -866,39 +918,46 @@ const _$PaymentMethodTypeEnumMap = {
   PaymentMethodType.sofort: 'sofort',
   PaymentMethodType.us_bank_account: 'us_bank_account',
   PaymentMethodType.wechat_pay: 'wechat_pay',
+  PaymentMethodType.unknown: 'unknown',
 };
 
 const _$BillingAddressCollectionEnumMap = {
   BillingAddressCollection.auto: 'auto',
   BillingAddressCollection.required: 'required',
+  BillingAddressCollection.unknown: 'unknown',
 };
 
 const _$CustomerCreationEnumMap = {
   CustomerCreation.always: 'always',
   CustomerCreation.if_required: 'if_required',
+  CustomerCreation.unknown: 'unknown',
 };
 
 const _$SessionModeEnumMap = {
   SessionMode.payment: 'payment',
   SessionMode.setup: 'setup',
   SessionMode.subscription: 'subscription',
+  SessionMode.unknown: 'unknown',
 };
 
 const _$PaymentMethodCollectionEnumMap = {
   PaymentMethodCollection.always: 'always',
   PaymentMethodCollection.if_required: 'if_required',
+  PaymentMethodCollection.unknown: 'unknown',
 };
 
 const _$PaymentStatusEnumMap = {
   PaymentStatus.no_payment_required: 'no_payment_required',
   PaymentStatus.paid: 'paid',
   PaymentStatus.unpaid: 'unpaid',
+  PaymentStatus.unknown: 'unknown',
 };
 
 const _$CheckoutSessionStatusEnumMap = {
   CheckoutSessionStatus.complete: 'complete',
   CheckoutSessionStatus.expired: 'expired',
   CheckoutSessionStatus.open: 'open',
+  CheckoutSessionStatus.unknown: 'unknown',
 };
 
 const _$SubmitTypeEnumMap = {
@@ -907,6 +966,7 @@ const _$SubmitTypeEnumMap = {
   SubmitType.donate: 'donate',
   SubmitType.pay: 'pay',
   SubmitType.subscribe: 'subscribe',
+  SubmitType.unknown: 'unknown',
 };
 
 Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
@@ -991,7 +1051,11 @@ SubscriptionEvent _$SubscriptionEventFromJson(Map<String, dynamic> json) =>
     SubscriptionEvent(
       object: $enumDecode(_$_EventObjectEnumMap, json['object']),
       id: json['id'] as String,
-      type: $enumDecode(_$EventTypeEnumMap, json['type']),
+      type: $enumDecode(
+        _$EventTypeEnumMap,
+        json['type'],
+        unknownValue: EventType.unknown,
+      ),
       data: EventData<Subscription>.fromJson(
         json['data'] as Map<String, dynamic>,
         (value) => Subscription.fromJson(value as Map<String, dynamic>),
@@ -1028,13 +1092,18 @@ const _$EventTypeEnumMap = {
       'checkout.session.async_payment_succeeded',
   EventType.checkoutSessionAsyncPaymentFailed:
       'checkout.session.async_payment_failed',
+  EventType.unknown: 'unknown',
 };
 
 CustomerEvent _$CustomerEventFromJson(Map<String, dynamic> json) =>
     CustomerEvent(
       object: $enumDecode(_$_EventObjectEnumMap, json['object']),
       id: json['id'] as String,
-      type: $enumDecode(_$EventTypeEnumMap, json['type']),
+      type: $enumDecode(
+        _$EventTypeEnumMap,
+        json['type'],
+        unknownValue: EventType.unknown,
+      ),
       data: EventData<Customer>.fromJson(
         json['data'] as Map<String, dynamic>,
         (value) => Customer.fromJson(value as Map<String, dynamic>),
@@ -1052,7 +1121,11 @@ Map<String, dynamic> _$CustomerEventToJson(CustomerEvent instance) =>
 ChargeEvent _$ChargeEventFromJson(Map<String, dynamic> json) => ChargeEvent(
   object: $enumDecode(_$_EventObjectEnumMap, json['object']),
   id: json['id'] as String,
-  type: $enumDecode(_$EventTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$EventTypeEnumMap,
+    json['type'],
+    unknownValue: EventType.unknown,
+  ),
   data: EventData<Charge>.fromJson(
     json['data'] as Map<String, dynamic>,
     (value) => Charge.fromJson(value as Map<String, dynamic>),
@@ -1071,7 +1144,11 @@ PaymentIntentEvent _$PaymentIntentEventFromJson(Map<String, dynamic> json) =>
     PaymentIntentEvent(
       object: $enumDecode(_$_EventObjectEnumMap, json['object']),
       id: json['id'] as String,
-      type: $enumDecode(_$EventTypeEnumMap, json['type']),
+      type: $enumDecode(
+        _$EventTypeEnumMap,
+        json['type'],
+        unknownValue: EventType.unknown,
+      ),
       data: EventData<PaymentIntent>.fromJson(
         json['data'] as Map<String, dynamic>,
         (value) => PaymentIntent.fromJson(value as Map<String, dynamic>),
@@ -1089,7 +1166,11 @@ Map<String, dynamic> _$PaymentIntentEventToJson(PaymentIntentEvent instance) =>
 RefundEvent _$RefundEventFromJson(Map<String, dynamic> json) => RefundEvent(
   object: $enumDecode(_$_EventObjectEnumMap, json['object']),
   id: json['id'] as String,
-  type: $enumDecode(_$EventTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$EventTypeEnumMap,
+    json['type'],
+    unknownValue: EventType.unknown,
+  ),
   data: EventData<Refund>.fromJson(
     json['data'] as Map<String, dynamic>,
     (value) => Refund.fromJson(value as Map<String, dynamic>),
@@ -1109,7 +1190,11 @@ CheckoutSessionEvent _$CheckoutSessionEventFromJson(
 ) => CheckoutSessionEvent(
   object: $enumDecode(_$_EventObjectEnumMap, json['object']),
   id: json['id'] as String,
-  type: $enumDecode(_$EventTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$EventTypeEnumMap,
+    json['type'],
+    unknownValue: EventType.unknown,
+  ),
   data: EventData<CheckoutSession>.fromJson(
     json['data'] as Map<String, dynamic>,
     (value) => CheckoutSession.fromJson(value as Map<String, dynamic>),
@@ -1134,10 +1219,15 @@ InvoiceAutomaticTax _$InvoiceAutomaticTaxFromJson(Map<String, dynamic> json) =>
               json['liability'] as Map<String, dynamic>,
             ),
       provider: json['provider'] as String?,
-      status: $enumDecodeNullable(_$AutomaticTaxStatusEnumMap, json['status']),
+      status: $enumDecodeNullable(
+        _$AutomaticTaxStatusEnumMap,
+        json['status'],
+        unknownValue: AutomaticTaxStatus.unknown,
+      ),
       disabledReason: $enumDecodeNullable(
         _$AutomaticTaxDisabledReasonEnumMap,
         json['disabled_reason'],
+        unknownValue: AutomaticTaxDisabledReason.unknown,
       ),
     );
 
@@ -1157,12 +1247,17 @@ const _$AutomaticTaxDisabledReasonEnumMap = {
       'finalization_requires_location_inputs',
   AutomaticTaxDisabledReason.finalization_system_error:
       'finalization_system_error',
+  AutomaticTaxDisabledReason.unknown: 'unknown',
 };
 
 InvoiceTaxLiability _$InvoiceTaxLiabilityFromJson(Map<String, dynamic> json) =>
     InvoiceTaxLiability(
       account: json['account'] as String?,
-      type: $enumDecode(_$IssuerTypeEnumMap, json['type']),
+      type: $enumDecode(
+        _$IssuerTypeEnumMap,
+        json['type'],
+        unknownValue: IssuerType.unknown,
+      ),
     );
 
 Map<String, dynamic> _$InvoiceTaxLiabilityToJson(
@@ -1175,6 +1270,7 @@ Map<String, dynamic> _$InvoiceTaxLiabilityToJson(
 const _$IssuerTypeEnumMap = {
   IssuerType.account: 'account',
   IssuerType.self: 'self',
+  IssuerType.unknown: 'unknown',
 };
 
 InvoiceStatusTransitions _$InvoiceStatusTransitionsFromJson(
@@ -1232,7 +1328,11 @@ Json? _$JsonConverterToJson<Json, Value>(
 InvoiceIssuer _$InvoiceIssuerFromJson(Map<String, dynamic> json) =>
     InvoiceIssuer(
       account: json['account'] as String?,
-      type: $enumDecode(_$IssuerTypeEnumMap, json['type']),
+      type: $enumDecode(
+        _$IssuerTypeEnumMap,
+        json['type'],
+        unknownValue: IssuerType.unknown,
+      ),
     );
 
 Map<String, dynamic> _$InvoiceIssuerToJson(InvoiceIssuer instance) =>
@@ -1405,10 +1505,12 @@ Invoice _$InvoiceFromJson(Map<String, dynamic> json) => Invoice(
   billingReason: $enumDecodeNullable(
     _$InvoiceBillingReasonEnumMap,
     json['billing_reason'],
+    unknownValue: InvoiceBillingReason.unknown,
   ),
   collectionMethod: $enumDecode(
     _$InvoiceCollectionMethodEnumMap,
     json['collection_method'],
+    unknownValue: InvoiceCollectionMethod.unknown,
   ),
   created: const TimestampConverter().fromJson(
     (json['created'] as num).toInt(),
@@ -1433,6 +1535,7 @@ Invoice _$InvoiceFromJson(Map<String, dynamic> json) => Invoice(
   customerTaxExempt: $enumDecodeNullable(
     _$CustomerTaxExemptEnumMap,
     json['customer_tax_exempt'],
+    unknownValue: CustomerTaxExempt.unknown,
   ),
   defaultPaymentMethod: json['default_payment_method'] as String?,
   defaultSource: json['default_source'] as String?,
@@ -1487,7 +1590,11 @@ Invoice _$InvoiceFromJson(Map<String, dynamic> json) => Invoice(
   receiptNumber: json['receipt_number'] as String?,
   startingBalance: (json['starting_balance'] as num).toInt(),
   statementDescriptor: json['statement_descriptor'] as String?,
-  status: $enumDecodeNullable(_$InvoiceStatusEnumMap, json['status']),
+  status: $enumDecodeNullable(
+    _$InvoiceStatusEnumMap,
+    json['status'],
+    unknownValue: InvoiceStatus.unknown,
+  ),
   statusTransitions: InvoiceStatusTransitions.fromJson(
     json['status_transitions'] as Map<String, dynamic>,
   ),
@@ -1606,17 +1713,20 @@ const _$InvoiceBillingReasonEnumMap = {
   InvoiceBillingReason.subscription_threshold: 'subscription_threshold',
   InvoiceBillingReason.subscription_update: 'subscription_update',
   InvoiceBillingReason.upcoming: 'upcoming',
+  InvoiceBillingReason.unknown: 'unknown',
 };
 
 const _$InvoiceCollectionMethodEnumMap = {
   InvoiceCollectionMethod.charge_automatically: 'charge_automatically',
   InvoiceCollectionMethod.send_invoice: 'send_invoice',
+  InvoiceCollectionMethod.unknown: 'unknown',
 };
 
 const _$CustomerTaxExemptEnumMap = {
   CustomerTaxExempt.exempt: 'exempt',
   CustomerTaxExempt.none: 'none',
   CustomerTaxExempt.reverse: 'reverse',
+  CustomerTaxExempt.unknown: 'unknown',
 };
 
 const _$InvoiceStatusEnumMap = {
@@ -1625,12 +1735,17 @@ const _$InvoiceStatusEnumMap = {
   InvoiceStatus.paid: 'paid',
   InvoiceStatus.uncollectible: 'uncollectible',
   InvoiceStatus.void_: 'void_',
+  InvoiceStatus.unknown: 'unknown',
 };
 
 InvoiceEvent _$InvoiceEventFromJson(Map<String, dynamic> json) => InvoiceEvent(
   object: $enumDecode(_$_EventObjectEnumMap, json['object']),
   id: json['id'] as String,
-  type: $enumDecode(_$EventTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$EventTypeEnumMap,
+    json['type'],
+    unknownValue: EventType.unknown,
+  ),
   data: EventData<Invoice>.fromJson(
     json['data'] as Map<String, dynamic>,
     (value) => Invoice.fromJson(value as Map<String, dynamic>),
@@ -1732,6 +1847,7 @@ const _$_PaymentIntentObjectEnumMap = {
 const _$SetupFutureUsageEnumMap = {
   SetupFutureUsage.on_session: 'on_session',
   SetupFutureUsage.off_session: 'off_session',
+  SetupFutureUsage.unknown: 'unknown',
 };
 
 AutomaticPaymentMethods _$AutomaticPaymentMethodsFromJson(
@@ -1762,10 +1878,18 @@ Map<String, dynamic> _$PortalSessionToJson(PortalSession instance) =>
 
 PriceRecurring _$PriceRecurringFromJson(Map<String, dynamic> json) =>
     PriceRecurring(
-      interval: $enumDecode(_$RecurringIntervalEnumMap, json['interval']),
+      interval: $enumDecode(
+        _$RecurringIntervalEnumMap,
+        json['interval'],
+        unknownValue: RecurringInterval.unknown,
+      ),
       intervalCount: (json['interval_count'] as num).toInt(),
       trialPeriodDays: (json['trial_period_days'] as num?)?.toInt(),
-      usageType: $enumDecode(_$UsageTypeEnumMap, json['usage_type']),
+      usageType: $enumDecode(
+        _$UsageTypeEnumMap,
+        json['usage_type'],
+        unknownValue: UsageType.unknown,
+      ),
     );
 
 Map<String, dynamic> _$PriceRecurringToJson(PriceRecurring instance) =>
@@ -1781,11 +1905,13 @@ const _$RecurringIntervalEnumMap = {
   RecurringInterval.week: 'week',
   RecurringInterval.month: 'month',
   RecurringInterval.year: 'year',
+  RecurringInterval.unknown: 'unknown',
 };
 
 const _$UsageTypeEnumMap = {
   UsageType.licensed: 'licensed',
   UsageType.metered: 'metered',
+  UsageType.unknown: 'unknown',
 };
 
 Price _$PriceFromJson(Map<String, dynamic> json) => Price(
@@ -1794,7 +1920,11 @@ Price _$PriceFromJson(Map<String, dynamic> json) => Price(
   active: json['active'] as bool,
   currency: json['currency'] as String,
   product: json['product'] as String,
-  type: $enumDecode(_$PriceTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$PriceTypeEnumMap,
+    json['type'],
+    unknownValue: PriceType.unknown,
+  ),
   unitAmount: (json['unit_amount'] as num).toInt(),
   nickname: json['nickname'] as String?,
   recurring: json['recurring'] == null
@@ -1819,6 +1949,7 @@ const _$_PriceObjectEnumMap = {_PriceObject.price: 'price'};
 const _$PriceTypeEnumMap = {
   PriceType.one_time: 'one_time',
   PriceType.recurring: 'recurring',
+  PriceType.unknown: 'unknown',
 };
 
 Product _$ProductFromJson(Map<String, dynamic> json) => Product(
@@ -1885,7 +2016,11 @@ CreateCheckoutSessionRequest _$CreateCheckoutSessionRequestFromJson(
   paymentMethodTypes: (json['payment_method_types'] as List<dynamic>)
       .map((e) => $enumDecode(_$PaymentMethodTypeEnumMap, e))
       .toList(),
-  mode: $enumDecodeNullable(_$SessionModeEnumMap, json['mode']),
+  mode: $enumDecodeNullable(
+    _$SessionModeEnumMap,
+    json['mode'],
+    unknownValue: SessionMode.unknown,
+  ),
   clientReferenceId: json['client_reference_id'] as String?,
   customerEmail: json['customer_email'] as String?,
   customer: json['customer'] as String?,
@@ -1895,6 +2030,7 @@ CreateCheckoutSessionRequest _$CreateCheckoutSessionRequestFromJson(
   billingAddressCollection: $enumDecodeNullable(
     _$BillingAddressCollectionEnumMap,
     json['billing_address_collection'],
+    unknownValue: BillingAddressCollection.unknown,
   ),
   automaticTax: json['automatic_tax'] == null
       ? null
@@ -2029,6 +2165,7 @@ PaymentIntentData _$PaymentIntentDataFromJson(Map<String, dynamic> json) =>
       setupFutureUsage: $enumDecodeNullable(
         _$SetupFutureUsageEnumMap,
         json['setup_future_usage'],
+        unknownValue: SetupFutureUsage.unknown,
       ),
       applicationFeeAmount: (json['application_fee_amount'] as num?)?.toInt(),
       metadata: json['metadata'] == null
@@ -2350,6 +2487,7 @@ const _$SubscriptionStatusEnumMap = {
   SubscriptionStatus.unpaid: 'unpaid',
   SubscriptionStatus.all: 'all',
   SubscriptionStatus.ended: 'ended',
+  SubscriptionStatus.unknown: 'unknown',
 };
 
 UpdateCustomerRequest _$UpdateCustomerRequestFromJson(
@@ -2470,7 +2608,11 @@ Subscription _$SubscriptionFromJson(Map<String, dynamic> json) => Subscription(
   id: json['id'] as String,
   created: (json['created'] as num).toInt(),
   customer: json['customer'] as String,
-  status: $enumDecode(_$SubscriptionStatusEnumMap, json['status']),
+  status: $enumDecode(
+    _$SubscriptionStatusEnumMap,
+    json['status'],
+    unknownValue: SubscriptionStatus.unknown,
+  ),
   items: DataList<SubscriptionItem>.fromJson(
     json['items'] as Map<String, dynamic>,
     (value) => SubscriptionItem.fromJson(value as Map<String, dynamic>),
@@ -2485,6 +2627,7 @@ Subscription _$SubscriptionFromJson(Map<String, dynamic> json) => Subscription(
   collectionMethod: $enumDecodeNullable(
     _$SubscriptionCollectionMethodEnumMap,
     json['collection_method'],
+    unknownValue: SubscriptionCollectionMethod.unknown,
   ),
   metadata: json['metadata'] as Map<String, dynamic>?,
 );
@@ -2516,6 +2659,7 @@ const _$_SubscriptionObjectEnumMap = {
 const _$SubscriptionCollectionMethodEnumMap = {
   SubscriptionCollectionMethod.charge_automatically: 'charge_automatically',
   SubscriptionCollectionMethod.send_invoice: 'send_invoice',
+  SubscriptionCollectionMethod.unknown: 'unknown',
 };
 
 SubscriptionItem _$SubscriptionItemFromJson(Map<String, dynamic> json) =>

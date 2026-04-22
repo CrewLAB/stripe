@@ -9,6 +9,7 @@ enum InvoiceStatus {
   paid,
   uncollectible,
   void_,
+  unknown,
 }
 
 /// Indicates the reason why the invoice was created
@@ -28,6 +29,7 @@ enum InvoiceBillingReason {
   // ignore: constant_identifier_names
   subscription_update,
   upcoming,
+  unknown,
 }
 
 /// Collection method for the invoice
@@ -36,6 +38,7 @@ enum InvoiceCollectionMethod {
   charge_automatically,
   // ignore: constant_identifier_names
   send_invoice,
+  unknown,
 }
 
 /// Customer tax exempt status
@@ -43,6 +46,7 @@ enum CustomerTaxExempt {
   exempt,
   none,
   reverse,
+  unknown,
 }
 
 /// Automatic tax status
@@ -51,6 +55,7 @@ enum AutomaticTaxStatus {
   failed,
   // ignore: constant_identifier_names
   requires_location_inputs,
+  unknown,
 }
 
 /// Automatic tax disabled reason
@@ -59,12 +64,14 @@ enum AutomaticTaxDisabledReason {
   finalization_requires_location_inputs,
   // ignore: constant_identifier_names
   finalization_system_error,
+  unknown,
 }
 
 /// Issuer type
 enum IssuerType {
   account,
   self,
+  unknown,
 }
 
 /// https://stripe.com/docs/api/invoices/object#invoice_object-automatic_tax
@@ -80,10 +87,11 @@ class InvoiceAutomaticTax {
   final String? provider;
 
   /// The status of the most recent automated tax calculation for this invoice.
+  @JsonKey(unknownEnumValue: AutomaticTaxStatus.unknown)
   final AutomaticTaxStatus? status;
 
   /// If Stripe disabled automatic tax, this enum describes why.
-  @JsonKey(name: 'disabled_reason')
+  @JsonKey(name: 'disabled_reason', unknownEnumValue: AutomaticTaxDisabledReason.unknown)
   final AutomaticTaxDisabledReason? disabledReason;
 
   InvoiceAutomaticTax({
@@ -106,6 +114,7 @@ class InvoiceTaxLiability {
   final String? account;
 
   /// Type of the account referenced.
+  @JsonKey(unknownEnumValue: IssuerType.unknown)
   final IssuerType type;
 
   InvoiceTaxLiability({
@@ -160,6 +169,7 @@ class InvoiceIssuer {
   final String? account;
 
   /// Type of the account referenced.
+  @JsonKey(unknownEnumValue: IssuerType.unknown)
   final IssuerType type;
 
   InvoiceIssuer({
@@ -444,11 +454,11 @@ class Invoice extends Message {
   final DateTime? automaticallyFinalizesAt;
 
   /// Indicates the reason why the invoice was created.
-  @JsonKey(name: 'billing_reason')
+  @JsonKey(name: 'billing_reason', unknownEnumValue: InvoiceBillingReason.unknown)
   final InvoiceBillingReason? billingReason;
 
   /// Either charge_automatically, or send_invoice.
-  @JsonKey(name: 'collection_method')
+  @JsonKey(name: 'collection_method', unknownEnumValue: InvoiceCollectionMethod.unknown)
   final InvoiceCollectionMethod collectionMethod;
 
   /// Time at which the object was created.
@@ -490,7 +500,7 @@ class Invoice extends Message {
   final InvoiceCustomerShipping? customerShipping;
 
   /// The customer's tax exempt status.
-  @JsonKey(name: 'customer_tax_exempt')
+  @JsonKey(name: 'customer_tax_exempt', unknownEnumValue: CustomerTaxExempt.unknown)
   final CustomerTaxExempt? customerTaxExempt;
 
   /// ID of the default payment method for the invoice.
@@ -607,6 +617,7 @@ class Invoice extends Message {
   final String? statementDescriptor;
 
   /// The status of the invoice.
+  @JsonKey(unknownEnumValue: InvoiceStatus.unknown)
   final InvoiceStatus? status;
 
   /// The timestamps at which the invoice status was updated.

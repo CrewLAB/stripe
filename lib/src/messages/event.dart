@@ -72,6 +72,10 @@ enum EventType {
   /// Async payment failed for checkout session
   @JsonValue('checkout.session.async_payment_failed')
   checkoutSessionAsyncPaymentFailed,
+
+  /// Unrecognized event type
+  @JsonValue('unknown')
+  unknown,
 }
 
 /// https://stripe.com/docs/api/events/object
@@ -85,6 +89,7 @@ abstract class Event<T extends Message> extends Message {
   EventData<T> data;
 
   /// Description of the event (e.g., invoice.paid or payment_intent.succeeded).
+  @JsonKey(unknownEnumValue: EventType.unknown)
   final EventType type;
 
   Event({

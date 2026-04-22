@@ -40,18 +40,21 @@ enum PaymentMethodType {
   us_bank_account,
   // ignore: constant_identifier_names
   wechat_pay,
+  unknown,
 }
 
 enum CustomerCreation {
   always,
   // ignore: constant_identifier_names
   if_required,
+  unknown,
 }
 
 enum PaymentMethodCollection {
   always,
   // ignore: constant_identifier_names
   if_required,
+  unknown,
 }
 
 enum PaymentStatus {
@@ -59,12 +62,14 @@ enum PaymentStatus {
   no_payment_required,
   paid,
   unpaid,
+  unknown,
 }
 
 enum CheckoutSessionStatus {
   complete,
   expired,
   open,
+  unknown,
 }
 
 enum SubmitType {
@@ -73,17 +78,20 @@ enum SubmitType {
   donate,
   pay,
   subscribe,
+  unknown,
 }
 
 enum LiabilityType {
   account,
   self,
+  unknown,
 }
 
 enum TaxExempt {
   exempt,
   none,
   reverse,
+  unknown,
 }
 
 enum TaxIdType {
@@ -243,27 +251,32 @@ enum AmountTaxDisplay {
   exclude_tax,
   // ignore: constant_identifier_names
   include_inclusive_tax,
+  unknown,
 }
 
 enum CustomFieldType {
   dropdown,
   numeric,
   text,
+  unknown,
 }
 
 enum ConsentCollectionPromotions {
   auto,
   none,
+  unknown,
 }
 
 enum ConsentCollectionTermsOfService {
   none,
   required,
+  unknown,
 }
 
 enum PaymentMethodReuseAgreementPosition {
   auto,
   hidden,
+  unknown,
 }
 
 // Supporting classes
@@ -271,6 +284,7 @@ enum PaymentMethodReuseAgreementPosition {
 @JsonSerializable()
 class Liability {
   final String? account;
+  @JsonKey(unknownEnumValue: LiabilityType.unknown)
   final LiabilityType type;
 
   Liability({
@@ -287,6 +301,7 @@ class Liability {
 class AutomaticTaxResponse {
   final bool enabled;
   final Liability? liability;
+  @JsonKey(unknownEnumValue: AutomaticTaxStatus.unknown)
   final AutomaticTaxStatus? status;
 
   AutomaticTaxResponse({
@@ -365,6 +380,7 @@ class CustomText {
 @JsonSerializable()
 class Issuer {
   final String? account;
+  @JsonKey(unknownEnumValue: LiabilityType.unknown)
   final LiabilityType type;
 
   Issuer({
@@ -378,6 +394,7 @@ class Issuer {
 
 @JsonSerializable()
 class RenderingOptions {
+  @JsonKey(unknownEnumValue: AmountTaxDisplay.unknown)
   final AmountTaxDisplay? amountTaxDisplay;
   final String? template;
 
@@ -433,6 +450,7 @@ class InvoiceCreation {
 
 @JsonSerializable()
 class TaxId {
+  @JsonKey(unknownEnumValue: TaxIdType.unknown)
   final TaxIdType type;
   final String? value;
 
@@ -451,6 +469,7 @@ class CustomerDetails {
   final String? email;
   final String? name;
   final String? phone;
+  @JsonKey(unknownEnumValue: TaxExempt.unknown)
   final TaxExempt? taxExempt;
   final List<TaxId>? taxIds;
 
@@ -517,6 +536,7 @@ class Consent {
 
 @JsonSerializable()
 class PaymentMethodReuseAgreement {
+  @JsonKey(unknownEnumValue: PaymentMethodReuseAgreementPosition.unknown)
   final PaymentMethodReuseAgreementPosition position;
 
   PaymentMethodReuseAgreement({
@@ -531,7 +551,9 @@ class PaymentMethodReuseAgreement {
 @JsonSerializable()
 class ConsentCollection {
   final PaymentMethodReuseAgreement? paymentMethodReuseAgreement;
+  @JsonKey(unknownEnumValue: ConsentCollectionPromotions.unknown)
   final ConsentCollectionPromotions? promotions;
+  @JsonKey(unknownEnumValue: ConsentCollectionTermsOfService.unknown)
   final ConsentCollectionTermsOfService? termsOfService;
 
   ConsentCollection({
@@ -638,6 +660,7 @@ class CustomField {
   final CustomFieldNumeric? numeric;
   final bool? optional;
   final CustomFieldText? text;
+  @JsonKey(unknownEnumValue: CustomFieldType.unknown)
   final CustomFieldType type;
 
   CustomField({
@@ -752,6 +775,7 @@ class CheckoutSession extends Message {
   final int? amountSubtotal;
   final int? amountTotal;
   final AutomaticTaxResponse? automaticTax;
+  @JsonKey(unknownEnumValue: BillingAddressCollection.unknown)
   final BillingAddressCollection? billingAddressCollection;
   final String? cancelUrl;
   final String? clientReferenceId;
@@ -760,6 +784,7 @@ class CheckoutSession extends Message {
   final int? created;
   final String? currency;
   final String? customer;
+  @JsonKey(unknownEnumValue: CustomerCreation.unknown)
   final CustomerCreation? customerCreation;
   final CustomerDetails? customerDetails;
   final String? customerEmail;
@@ -771,12 +796,15 @@ class CheckoutSession extends Message {
   final bool? livemode;
   final String? locale;
   final Map<String, dynamic>? metadata;
+  @JsonKey(unknownEnumValue: SessionMode.unknown)
   final SessionMode? mode;
   final String? paymentIntent;
   final String? paymentLink;
+  @JsonKey(unknownEnumValue: PaymentMethodCollection.unknown)
   final PaymentMethodCollection? paymentMethodCollection;
   final Map<String, dynamic>? paymentMethodOptions;
   final List<PaymentMethodType> paymentMethodTypes;
+  @JsonKey(unknownEnumValue: PaymentStatus.unknown)
   final PaymentStatus? paymentStatus;
   final PhoneNumberCollection? phoneNumberCollection;
   final String? recoveredFrom;
@@ -785,7 +813,9 @@ class CheckoutSession extends Message {
   final ShippingCost? shippingCost;
   final ShippingDetails? shippingDetails;
   final List<ShippingOption>? shippingOptions;
+  @JsonKey(unknownEnumValue: CheckoutSessionStatus.unknown)
   final CheckoutSessionStatus? status;
+  @JsonKey(unknownEnumValue: SubmitType.unknown)
   final SubmitType? submitType;
   final String? subscription;
   final String? successUrl;

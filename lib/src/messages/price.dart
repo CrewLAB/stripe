@@ -3,7 +3,7 @@ part of '../../messages.dart';
 enum _PriceObject { price }
 
 // ignore: constant_identifier_names
-enum PriceType { one_time, recurring }
+enum PriceType { one_time, recurring, unknown }
 
 enum RecurringInterval {
   @JsonValue('day')
@@ -13,7 +13,8 @@ enum RecurringInterval {
   @JsonValue('month')
   month,
   @JsonValue('year')
-  year;
+  year,
+  unknown;
 
   String get displayName {
     return switch (this) {
@@ -21,6 +22,7 @@ enum RecurringInterval {
       week => 'Weekly',
       month => 'Monthly',
       year => 'Annual',
+      unknown => 'Unknown',
     };
   }
 }
@@ -29,13 +31,15 @@ enum UsageType {
   @JsonValue('licensed')
   licensed,
   @JsonValue('metered')
-  metered;
+  metered,
+  unknown;
 }
 
 /// https://stripe.com/docs/api/prices/object#price_object-recurring
 @JsonSerializable()
 class PriceRecurring {
   /// Specifies billing frequency. Either day, week, month or year.
+  @JsonKey(unknownEnumValue: RecurringInterval.unknown)
   final RecurringInterval interval;
 
   /// The number of intervals (specified in the interval attribute) between
@@ -49,7 +53,7 @@ class PriceRecurring {
   final int? trialPeriodDays;
 
   /// Configures how the quantity per period should be determined. One of licensed or metered.
-  @JsonKey(name: 'usage_type')
+  @JsonKey(name: 'usage_type', unknownEnumValue: UsageType.unknown)
   final UsageType usageType;
 
   PriceRecurring({
@@ -84,6 +88,7 @@ class Price extends Message {
 
   /// One of one_time or recurring depending on whether the price is for a
   /// one-time purchase or a recurring (subscription) purchase.
+  @JsonKey(unknownEnumValue: PriceType.unknown)
   final PriceType type;
 
   /// The unit amount in cents to be charged, represented as a whole integer if
