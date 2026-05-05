@@ -115,6 +115,7 @@ class CreateCheckoutSessionRequest {
 
   factory CreateCheckoutSessionRequest.fromJson(Map<String, dynamic> json) =>
       _$CreateCheckoutSessionRequestFromJson(json);
+
   Map<String, dynamic> toJson() => _$CreateCheckoutSessionRequestToJson(this);
 }
 
@@ -136,16 +137,10 @@ class LineItem {
   /// required.
   final String? price;
 
-  LineItem({
-    this.images,
-    this.quantity,
-    this.description,
-    this.price,
-    this.priceData,
-  });
+  LineItem({this.images, this.quantity, this.description, this.price, this.priceData});
 
-  factory LineItem.fromJson(Map<String, dynamic> json) =>
-      _$LineItemFromJson(json);
+  factory LineItem.fromJson(Map<String, dynamic> json) => _$LineItemFromJson(json);
+
   Map<String, dynamic> toJson() => _$LineItemToJson(this);
 }
 
@@ -167,15 +162,10 @@ class PriceData {
   /// product_data is required.
   final ProductData? productData;
 
-  PriceData({
-    required this.currency,
-    this.product,
-    this.unitAmount,
-    this.productData,
-  });
+  PriceData({required this.currency, this.product, this.unitAmount, this.productData});
 
-  factory PriceData.fromJson(Map<String, dynamic> json) =>
-      _$PriceDataFromJson(json);
+  factory PriceData.fromJson(Map<String, dynamic> json) => _$PriceDataFromJson(json);
+
   Map<String, dynamic> toJson() => _$PriceDataToJson(this);
 }
 
@@ -195,14 +185,10 @@ class ProductData {
   /// to the customer.
   final List<String>? images;
 
-  ProductData({
-    required this.name,
-    this.description,
-    this.images,
-  });
+  ProductData({required this.name, this.description, this.images});
 
-  factory ProductData.fromJson(Map<String, dynamic> json) =>
-      _$ProductDataFromJson(json);
+  factory ProductData.fromJson(Map<String, dynamic> json) => _$ProductDataFromJson(json);
+
   Map<String, dynamic> toJson() => _$ProductDataToJson(this);
 }
 
@@ -210,12 +196,10 @@ class ProductData {
 class AutomaticTax {
   final bool enabled;
 
-  AutomaticTax({
-    required this.enabled,
-  });
+  AutomaticTax({required this.enabled});
 
-  factory AutomaticTax.fromJson(Map<String, dynamic> json) =>
-      _$AutomaticTaxFromJson(json);
+  factory AutomaticTax.fromJson(Map<String, dynamic> json) => _$AutomaticTaxFromJson(json);
+
   Map<String, dynamic> toJson() => _$AutomaticTaxToJson(this);
 }
 
@@ -223,12 +207,10 @@ class AutomaticTax {
 class TaxIdCollection {
   final bool enabled;
 
-  TaxIdCollection({
-    required this.enabled,
-  });
+  TaxIdCollection({required this.enabled});
 
-  factory TaxIdCollection.fromJson(Map<String, dynamic> json) =>
-      _$TaxIdCollectionFromJson(json);
+  factory TaxIdCollection.fromJson(Map<String, dynamic> json) => _$TaxIdCollectionFromJson(json);
+
   Map<String, dynamic> toJson() => _$TaxIdCollectionToJson(this);
 }
 
@@ -254,13 +236,10 @@ class TransferData {
   /// If not specified, the entire amount is transferred minus the application fee.
   final int? amount;
 
-  TransferData({
-    required this.destination,
-    this.amount,
-  });
+  TransferData({required this.destination, this.amount});
 
-  factory TransferData.fromJson(Map<String, dynamic> json) =>
-      _$TransferDataFromJson(json);
+  factory TransferData.fromJson(Map<String, dynamic> json) => _$TransferDataFromJson(json);
+
   Map<String, dynamic> toJson() => _$TransferDataToJson(this);
 }
 
@@ -270,15 +249,12 @@ class PaymentIntentMetadata {
   final String? price;
   @JsonKey(name: 'groupId')
   final int? groupId;
+  final int? childProgramRegistrationId;
 
-  PaymentIntentMetadata({
-    this.product,
-    this.price,
-    this.groupId,
-  });
+  PaymentIntentMetadata({this.product, this.price, this.groupId, this.childProgramRegistrationId});
 
-  factory PaymentIntentMetadata.fromJson(Map<String, dynamic> json) =>
-      _$PaymentIntentMetadataFromJson(json);
+  factory PaymentIntentMetadata.fromJson(Map<String, dynamic> json) => _$PaymentIntentMetadataFromJson(json);
+
   Map<String, dynamic> toJson() => _$PaymentIntentMetadataToJson(this);
 }
 
@@ -301,8 +277,8 @@ class PaymentIntentData {
     this.onBehalfOf,
   });
 
-  factory PaymentIntentData.fromJson(Map<String, dynamic> json) =>
-      _$PaymentIntentDataFromJson(json);
+  factory PaymentIntentData.fromJson(Map<String, dynamic> json) => _$PaymentIntentDataFromJson(json);
+
   Map<String, dynamic> toJson() => _$PaymentIntentDataToJson(this);
 }
 
@@ -311,12 +287,10 @@ class SubscriptionMetadata {
   @JsonKey(name: 'groupId')
   final int? groupId;
 
-  SubscriptionMetadata({
-    this.groupId,
-  });
+  SubscriptionMetadata({this.groupId});
 
-  factory SubscriptionMetadata.fromJson(Map<String, dynamic> json) =>
-      _$SubscriptionMetadataFromJson(json);
+  factory SubscriptionMetadata.fromJson(Map<String, dynamic> json) => _$SubscriptionMetadataFromJson(json);
+
   Map<String, dynamic> toJson() => _$SubscriptionMetadataToJson(this);
 }
 
@@ -343,15 +317,9 @@ class SubscriptionData {
   /// with the branding and support information of the specified account.
   final TransferData? transferData;
 
-  SubscriptionData({
-    this.trialEnd,
-    this.trialPeriodDays,
-    this.metadata,
-    this.applicationFeePercent,
-    this.transferData,
-  });
+  SubscriptionData({this.trialEnd, this.trialPeriodDays, this.metadata, this.applicationFeePercent, this.transferData});
 
-  factory SubscriptionData.fromJson(Map<String, dynamic> json) =>
-      _$SubscriptionDataFromJson(json);
+  factory SubscriptionData.fromJson(Map<String, dynamic> json) => _$SubscriptionDataFromJson(json);
+
   Map<String, dynamic> toJson() => _$SubscriptionDataToJson(this);
 }

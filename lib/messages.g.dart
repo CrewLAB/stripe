@@ -2149,6 +2149,8 @@ PaymentIntentMetadata _$PaymentIntentMetadataFromJson(
   product: json['product'] as String?,
   price: json['price'] as String?,
   groupId: (json['groupId'] as num?)?.toInt(),
+  childProgramRegistrationId: (json['child_program_registration_id'] as num?)
+      ?.toInt(),
 );
 
 Map<String, dynamic> _$PaymentIntentMetadataToJson(
@@ -2157,6 +2159,7 @@ Map<String, dynamic> _$PaymentIntentMetadataToJson(
   'product': ?instance.product,
   'price': ?instance.price,
   'groupId': ?instance.groupId,
+  'child_program_registration_id': ?instance.childProgramRegistrationId,
 };
 
 PaymentIntentData _$PaymentIntentDataFromJson(Map<String, dynamic> json) =>
