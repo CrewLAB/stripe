@@ -2493,6 +2493,189 @@ const _$SubscriptionStatusEnumMap = {
   SubscriptionStatus.unknown: 'unknown',
 };
 
+CreateSubscriptionScheduleRequestPhaseDuration
+_$CreateSubscriptionScheduleRequestPhaseDurationFromJson(
+  Map<String, dynamic> json,
+) => CreateSubscriptionScheduleRequestPhaseDuration(
+  interval: $enumDecode(_$RecurringIntervalEnumMap, json['interval']),
+  intervalCount: (json['interval_count'] as num).toInt(),
+);
+
+Map<String, dynamic> _$CreateSubscriptionScheduleRequestPhaseDurationToJson(
+  CreateSubscriptionScheduleRequestPhaseDuration instance,
+) => <String, dynamic>{
+  'interval': _$RecurringIntervalEnumMap[instance.interval]!,
+  'interval_count': instance.intervalCount,
+};
+
+CreateSubscriptionScheduleRequestPhaseItem
+_$CreateSubscriptionScheduleRequestPhaseItemFromJson(
+  Map<String, dynamic> json,
+) => CreateSubscriptionScheduleRequestPhaseItem(
+  price: json['price'] as String?,
+  quantity: (json['quantity'] as num?)?.toInt(),
+);
+
+Map<String, dynamic> _$CreateSubscriptionScheduleRequestPhaseItemToJson(
+  CreateSubscriptionScheduleRequestPhaseItem instance,
+) => <String, dynamic>{
+  'price': ?instance.price,
+  'quantity': ?instance.quantity,
+};
+
+CreateSubscriptionScheduleRequestPhase
+_$CreateSubscriptionScheduleRequestPhaseFromJson(Map<String, dynamic> json) =>
+    CreateSubscriptionScheduleRequestPhase(
+      items: (json['items'] as List<dynamic>)
+          .map(
+            (e) => CreateSubscriptionScheduleRequestPhaseItem.fromJson(
+              e as Map<String, dynamic>,
+            ),
+          )
+          .toList(),
+      duration: json['duration'] == null
+          ? null
+          : CreateSubscriptionScheduleRequestPhaseDuration.fromJson(
+              json['duration'] as Map<String, dynamic>,
+            ),
+      endDate: _$JsonConverterFromJson<int, DateTime>(
+        json['end_date'],
+        const TimestampConverter().fromJson,
+      ),
+      trialEnd: _$JsonConverterFromJson<int, DateTime>(
+        json['trial_end'],
+        const TimestampConverter().fromJson,
+      ),
+      trial: json['trial'] as bool?,
+      currency: json['currency'] as String?,
+      collectionMethod: $enumDecodeNullable(
+        _$SubscriptionScheduleCollectionMethodEnumMap,
+        json['collection_method'],
+      ),
+      defaultPaymentMethod: json['default_payment_method'] as String?,
+      description: json['description'] as String?,
+      metadata: json['metadata'] as Map<String, dynamic>?,
+      billingCycleAnchor: $enumDecodeNullable(
+        _$SubscriptionScheduleBillingCycleAnchorEnumMap,
+        json['billing_cycle_anchor'],
+      ),
+      prorationBehavior: $enumDecodeNullable(
+        _$SubscriptionScheduleProrationBehaviorEnumMap,
+        json['proration_behavior'],
+      ),
+      applicationFeePercent: (json['application_fee_percent'] as num?)
+          ?.toDouble(),
+      onBehalfOf: json['on_behalf_of'] as String?,
+    );
+
+Map<String, dynamic> _$CreateSubscriptionScheduleRequestPhaseToJson(
+  CreateSubscriptionScheduleRequestPhase instance,
+) => <String, dynamic>{
+  'items': instance.items.map((e) => e.toJson()).toList(),
+  'duration': ?instance.duration?.toJson(),
+  'end_date': ?_$JsonConverterToJson<int, DateTime>(
+    instance.endDate,
+    const TimestampConverter().toJson,
+  ),
+  'trial_end': ?_$JsonConverterToJson<int, DateTime>(
+    instance.trialEnd,
+    const TimestampConverter().toJson,
+  ),
+  'trial': ?instance.trial,
+  'currency': ?instance.currency,
+  'collection_method':
+      ?_$SubscriptionScheduleCollectionMethodEnumMap[instance.collectionMethod],
+  'default_payment_method': ?instance.defaultPaymentMethod,
+  'description': ?instance.description,
+  'metadata': ?instance.metadata,
+  'billing_cycle_anchor':
+      ?_$SubscriptionScheduleBillingCycleAnchorEnumMap[instance
+          .billingCycleAnchor],
+  'proration_behavior':
+      ?_$SubscriptionScheduleProrationBehaviorEnumMap[instance
+          .prorationBehavior],
+  'application_fee_percent': ?instance.applicationFeePercent,
+  'on_behalf_of': ?instance.onBehalfOf,
+};
+
+const _$SubscriptionScheduleCollectionMethodEnumMap = {
+  SubscriptionScheduleCollectionMethod.charge_automatically:
+      'charge_automatically',
+  SubscriptionScheduleCollectionMethod.send_invoice: 'send_invoice',
+};
+
+const _$SubscriptionScheduleBillingCycleAnchorEnumMap = {
+  SubscriptionScheduleBillingCycleAnchor.automatic: 'automatic',
+  SubscriptionScheduleBillingCycleAnchor.phase_start: 'phase_start',
+};
+
+const _$SubscriptionScheduleProrationBehaviorEnumMap = {
+  SubscriptionScheduleProrationBehavior.create_prorations: 'create_prorations',
+  SubscriptionScheduleProrationBehavior.always_invoice: 'always_invoice',
+  SubscriptionScheduleProrationBehavior.none: 'none',
+};
+
+CreateSubscriptionScheduleRequest _$CreateSubscriptionScheduleRequestFromJson(
+  Map<String, dynamic> json,
+) => CreateSubscriptionScheduleRequest(
+  customer: json['customer'] as String?,
+  fromSubscription: json['from_subscription'] as String?,
+  startDate: _$JsonConverterFromJson<int, DateTime>(
+    json['start_date'],
+    const TimestampConverter().fromJson,
+  ),
+  endBehavior: $enumDecodeNullable(
+    _$SubscriptionScheduleEndBehaviorEnumMap,
+    json['end_behavior'],
+  ),
+  phases: (json['phases'] as List<dynamic>?)
+      ?.map(
+        (e) => CreateSubscriptionScheduleRequestPhase.fromJson(
+          e as Map<String, dynamic>,
+        ),
+      )
+      .toList(),
+  metadata: json['metadata'] as Map<String, dynamic>?,
+);
+
+Map<String, dynamic> _$CreateSubscriptionScheduleRequestToJson(
+  CreateSubscriptionScheduleRequest instance,
+) => <String, dynamic>{
+  'customer': ?instance.customer,
+  'from_subscription': ?instance.fromSubscription,
+  'start_date': ?_$JsonConverterToJson<int, DateTime>(
+    instance.startDate,
+    const TimestampConverter().toJson,
+  ),
+  'end_behavior':
+      ?_$SubscriptionScheduleEndBehaviorEnumMap[instance.endBehavior],
+  'phases': ?instance.phases?.map((e) => e.toJson()).toList(),
+  'metadata': ?instance.metadata,
+};
+
+const _$SubscriptionScheduleEndBehaviorEnumMap = {
+  SubscriptionScheduleEndBehavior.release: 'release',
+  SubscriptionScheduleEndBehavior.cancel: 'cancel',
+};
+
+ListSubscriptionSchedulesRequest _$ListSubscriptionSchedulesRequestFromJson(
+  Map<String, dynamic> json,
+) => ListSubscriptionSchedulesRequest(
+  customer: json['customer'] as String?,
+  limit: (json['limit'] as num?)?.toInt(),
+  startingAfter: json['starting_after'] as String?,
+  endingBefore: json['ending_before'] as String?,
+);
+
+Map<String, dynamic> _$ListSubscriptionSchedulesRequestToJson(
+  ListSubscriptionSchedulesRequest instance,
+) => <String, dynamic>{
+  'customer': ?instance.customer,
+  'limit': ?instance.limit,
+  'starting_after': ?instance.startingAfter,
+  'ending_before': ?instance.endingBefore,
+};
+
 UpdateCustomerRequest _$UpdateCustomerRequestFromJson(
   Map<String, dynamic> json,
 ) => UpdateCustomerRequest(
@@ -2683,4 +2866,189 @@ Map<String, dynamic> _$SubscriptionItemToJson(SubscriptionItem instance) =>
 
 const _$_SubscriptionItemObjectEnumMap = {
   _SubscriptionItemObject.subscription_item: 'subscription_item',
+};
+
+SubscriptionScheduleCurrentPhase _$SubscriptionScheduleCurrentPhaseFromJson(
+  Map<String, dynamic> json,
+) => SubscriptionScheduleCurrentPhase(
+  startDate: const TimestampConverter().fromJson(
+    (json['start_date'] as num).toInt(),
+  ),
+  endDate: const TimestampConverter().fromJson(
+    (json['end_date'] as num).toInt(),
+  ),
+);
+
+Map<String, dynamic> _$SubscriptionScheduleCurrentPhaseToJson(
+  SubscriptionScheduleCurrentPhase instance,
+) => <String, dynamic>{
+  'start_date': const TimestampConverter().toJson(instance.startDate),
+  'end_date': const TimestampConverter().toJson(instance.endDate),
+};
+
+SubscriptionSchedulePhaseItem _$SubscriptionSchedulePhaseItemFromJson(
+  Map<String, dynamic> json,
+) => SubscriptionSchedulePhaseItem(
+  price: json['price'] as String?,
+  quantity: (json['quantity'] as num?)?.toInt(),
+  metadata: json['metadata'] as Map<String, dynamic>?,
+);
+
+Map<String, dynamic> _$SubscriptionSchedulePhaseItemToJson(
+  SubscriptionSchedulePhaseItem instance,
+) => <String, dynamic>{
+  'price': ?instance.price,
+  'quantity': ?instance.quantity,
+  'metadata': ?instance.metadata,
+};
+
+SubscriptionSchedulePhase _$SubscriptionSchedulePhaseFromJson(
+  Map<String, dynamic> json,
+) => SubscriptionSchedulePhase(
+  items: (json['items'] as List<dynamic>)
+      .map(
+        (e) =>
+            SubscriptionSchedulePhaseItem.fromJson(e as Map<String, dynamic>),
+      )
+      .toList(),
+  startDate: const TimestampConverter().fromJson(
+    (json['start_date'] as num).toInt(),
+  ),
+  endDate: const TimestampConverter().fromJson(
+    (json['end_date'] as num).toInt(),
+  ),
+  trialEnd: _$JsonConverterFromJson<int, DateTime>(
+    json['trial_end'],
+    const TimestampConverter().fromJson,
+  ),
+  currency: json['currency'] as String?,
+  collectionMethod: $enumDecodeNullable(
+    _$SubscriptionScheduleCollectionMethodEnumMap,
+    json['collection_method'],
+  ),
+  defaultPaymentMethod: json['default_payment_method'] as String?,
+  description: json['description'] as String?,
+  metadata: json['metadata'] as Map<String, dynamic>?,
+  billingCycleAnchor: $enumDecodeNullable(
+    _$SubscriptionScheduleBillingCycleAnchorEnumMap,
+    json['billing_cycle_anchor'],
+  ),
+  prorationBehavior: $enumDecodeNullable(
+    _$SubscriptionScheduleProrationBehaviorEnumMap,
+    json['proration_behavior'],
+  ),
+  applicationFeePercent: (json['application_fee_percent'] as num?)?.toDouble(),
+  onBehalfOf: json['on_behalf_of'] as String?,
+  trial: json['trial'] as bool?,
+);
+
+Map<String, dynamic> _$SubscriptionSchedulePhaseToJson(
+  SubscriptionSchedulePhase instance,
+) => <String, dynamic>{
+  'items': instance.items.map((e) => e.toJson()).toList(),
+  'start_date': const TimestampConverter().toJson(instance.startDate),
+  'end_date': const TimestampConverter().toJson(instance.endDate),
+  'trial_end': ?_$JsonConverterToJson<int, DateTime>(
+    instance.trialEnd,
+    const TimestampConverter().toJson,
+  ),
+  'currency': ?instance.currency,
+  'collection_method':
+      ?_$SubscriptionScheduleCollectionMethodEnumMap[instance.collectionMethod],
+  'default_payment_method': ?instance.defaultPaymentMethod,
+  'description': ?instance.description,
+  'metadata': ?instance.metadata,
+  'billing_cycle_anchor':
+      ?_$SubscriptionScheduleBillingCycleAnchorEnumMap[instance
+          .billingCycleAnchor],
+  'proration_behavior':
+      ?_$SubscriptionScheduleProrationBehaviorEnumMap[instance
+          .prorationBehavior],
+  'application_fee_percent': ?instance.applicationFeePercent,
+  'on_behalf_of': ?instance.onBehalfOf,
+  'trial': ?instance.trial,
+};
+
+SubscriptionSchedule _$SubscriptionScheduleFromJson(
+  Map<String, dynamic> json,
+) => SubscriptionSchedule(
+  object: $enumDecode(_$_SubscriptionScheduleObjectEnumMap, json['object']),
+  id: json['id'] as String,
+  customer: json['customer'] as String,
+  status: $enumDecode(_$SubscriptionScheduleStatusEnumMap, json['status']),
+  endBehavior: $enumDecode(
+    _$SubscriptionScheduleEndBehaviorEnumMap,
+    json['end_behavior'],
+  ),
+  phases: (json['phases'] as List<dynamic>)
+      .map((e) => SubscriptionSchedulePhase.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  created: const TimestampConverter().fromJson(
+    (json['created'] as num).toInt(),
+  ),
+  livemode: json['livemode'] as bool,
+  currentPhase: json['current_phase'] == null
+      ? null
+      : SubscriptionScheduleCurrentPhase.fromJson(
+          json['current_phase'] as Map<String, dynamic>,
+        ),
+  subscription: json['subscription'] as String?,
+  releasedSubscription: json['released_subscription'] as String?,
+  canceledAt: _$JsonConverterFromJson<int, DateTime>(
+    json['canceled_at'],
+    const TimestampConverter().fromJson,
+  ),
+  completedAt: _$JsonConverterFromJson<int, DateTime>(
+    json['completed_at'],
+    const TimestampConverter().fromJson,
+  ),
+  releasedAt: _$JsonConverterFromJson<int, DateTime>(
+    json['released_at'],
+    const TimestampConverter().fromJson,
+  ),
+  metadata: json['metadata'] as Map<String, dynamic>?,
+  testClock: json['test_clock'] as String?,
+);
+
+Map<String, dynamic> _$SubscriptionScheduleToJson(
+  SubscriptionSchedule instance,
+) => <String, dynamic>{
+  'object': _$_SubscriptionScheduleObjectEnumMap[instance.object]!,
+  'id': instance.id,
+  'customer': instance.customer,
+  'status': _$SubscriptionScheduleStatusEnumMap[instance.status]!,
+  'end_behavior':
+      _$SubscriptionScheduleEndBehaviorEnumMap[instance.endBehavior]!,
+  'phases': instance.phases.map((e) => e.toJson()).toList(),
+  'created': const TimestampConverter().toJson(instance.created),
+  'current_phase': ?instance.currentPhase?.toJson(),
+  'subscription': ?instance.subscription,
+  'released_subscription': ?instance.releasedSubscription,
+  'canceled_at': ?_$JsonConverterToJson<int, DateTime>(
+    instance.canceledAt,
+    const TimestampConverter().toJson,
+  ),
+  'completed_at': ?_$JsonConverterToJson<int, DateTime>(
+    instance.completedAt,
+    const TimestampConverter().toJson,
+  ),
+  'released_at': ?_$JsonConverterToJson<int, DateTime>(
+    instance.releasedAt,
+    const TimestampConverter().toJson,
+  ),
+  'livemode': instance.livemode,
+  'metadata': ?instance.metadata,
+  'test_clock': ?instance.testClock,
+};
+
+const _$_SubscriptionScheduleObjectEnumMap = {
+  _SubscriptionScheduleObject.subscription_schedule: 'subscription_schedule',
+};
+
+const _$SubscriptionScheduleStatusEnumMap = {
+  SubscriptionScheduleStatus.not_started: 'not_started',
+  SubscriptionScheduleStatus.active: 'active',
+  SubscriptionScheduleStatus.completed: 'completed',
+  SubscriptionScheduleStatus.released: 'released',
+  SubscriptionScheduleStatus.canceled: 'canceled',
 };

@@ -14,6 +14,7 @@ import 'src/resources/price.dart';
 import 'src/resources/product.dart';
 import 'src/resources/refund.dart';
 import 'src/resources/subscription.dart';
+import 'src/resources/subscription_schedule.dart';
 
 export 'messages.dart';
 export 'src/client.dart';
@@ -63,6 +64,9 @@ class Stripe {
   /// https://stripe.com/docs/api/subscriptions
   final SubscriptionResource subscription;
 
+  /// https://stripe.com/docs/api/subscription_schedules
+  final SubscriptionScheduleResource subscriptionSchedule;
+
   /// https://stripe.com/docs/api/balance_transactions
   final BalanceTransactionResource balanceTransaction;
 
@@ -82,6 +86,7 @@ class Stripe {
         price = PriceResource(client),
         product = ProductResource(client),
         subscription = SubscriptionResource(client),
+        subscriptionSchedule = SubscriptionScheduleResource(client),
         charge = ChargeResource(client),
         balanceTransaction = BalanceTransactionResource(client);
 }
