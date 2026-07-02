@@ -126,15 +126,18 @@ class Subscription extends Message {
   /// As per the object definition [https://docs.stripe.com/api/subscriptions/object?api-version=2025-11-17.clover#subscription_object-items-data-current_period_end]
   /// The fields [Subscription.currentPeriodStart] and [Subscription.currentPeriodEnd] are now part of the
   /// SubscriptionItem object. This method is used to read the current period end field from the subscription item object.
-  static Object? readCurrentPeriodField(Map json, String fieldName) {
+  static Object? readCurrentPeriodField(Map<dynamic, dynamic> json, String fieldName) {
     final Object? items = json['items'];
     if (items != null) {
       if (items is Map) {
-        final isList = items['object'] == 'list';
+        final bool isList = items['object'] == 'list';
         if (isList) {
-          final data = items['data'] as List<dynamic>;
+          final List<dynamic> data = items['data'] as List<dynamic>;
           if (data.isNotEmpty) {
-            return data.first[fieldName];
+            final dynamic firstEntry = data.first;
+            if (firstEntry is Map) {
+              return firstEntry[fieldName];
+            }
           }
         }
       }
