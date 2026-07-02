@@ -27,7 +27,7 @@ enum SubscriptionCollectionMethod {
   unknown,
 }
 
-/// https://stripe.com/docs/api/subscriptions/object
+/// https://docs.stripe.com/api/subscriptions/object?api-version=2025-11-17.clover
 @JsonSerializable()
 class Subscription extends Message {
   final _SubscriptionObject object;
@@ -44,11 +44,13 @@ class Subscription extends Message {
 
   /// Start of the current period that the subscription has been invoiced for.
   @TimestampConverter()
+  @JsonKey(readValue: readCurrentPeriodField)
   final DateTime currentPeriodStart;
 
   /// End of the current period that the subscription has been invoiced for. At
   /// the end of this period, a new invoice will be created.
   @TimestampConverter()
+  @JsonKey(readValue: readCurrentPeriodField)
   final DateTime currentPeriodEnd;
 
   /// Either charge_automatically, or send_invoice. When charging automatically,
@@ -99,6 +101,7 @@ class Subscription extends Message {
   /// true, cancel_at_period_end on the subscription will be true. You can use
   /// this attribute to determine whether a subscription that has a status of
   /// active is scheduled to be canceled at the end of the current period.
+  @JsonKey(name: 'cancel_at_period_end')
   final bool cancelAtPeriodEnd;
 
   Subscription({
@@ -115,9 +118,28 @@ class Subscription extends Message {
     this.metadata,
   });
 
-  factory Subscription.fromJson(Map<String, dynamic> json) =>
-      _$SubscriptionFromJson(json);
+  factory Subscription.fromJson(Map<String, dynamic> json) => _$SubscriptionFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$SubscriptionToJson(this);
+
+  /// As per the object definition [https://docs.stripe.com/api/subscriptions/object?api-version=2025-11-17.clover#subscription_object-items-data-current_period_end]
+  /// The fields [Subscription.currentPeriodStart] and [Subscription.currentPeriodEnd] are now part of the
+  /// SubscriptionItem object. This method is used to read the current period end field from the subscription item object.
+  static Object? readCurrentPeriodField(Map json, String fieldName) {
+    final Object? items = json['items'];
+    if (items != null) {
+      if (items is Map) {
+        final isList = items['object'] == 'list';
+        if (isList) {
+          final data = items['data'] as List<dynamic>;
+          if (data.isNotEmpty) {
+            return data.first[fieldName];
+          }
+        }
+      }
+    }
+
+    return null;
+  }
 }
