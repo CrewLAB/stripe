@@ -1,5 +1,16 @@
 part of '../../../messages.dart';
 
+enum RefundReason {
+  @JsonValue('duplicate')
+  duplicate,
+
+  @JsonValue('fraudulent')
+  fraudulent,
+
+  @JsonValue('requested_by_customer')
+  requestedByCustomer,
+}
+
 /// https://stripe.com/docs/api/checkout/refunds/create
 @JsonSerializable()
 class CreateRefundRequest {
@@ -19,7 +30,7 @@ class CreateRefundRequest {
   /// charge to be fraudulent, specifying fraudulent as the reason will add the
   /// associated card and email to your block lists, and will also help us
   /// improve our fraud detection algorithms.
-  final String? reason;
+  final RefundReason? reason;
 
   CreateRefundRequest({
     this.charge,

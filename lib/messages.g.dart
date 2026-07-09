@@ -2364,7 +2364,7 @@ CreateRefundRequest _$CreateRefundRequestFromJson(Map<String, dynamic> json) =>
       charge: json['charge'] as String?,
       amount: (json['amount'] as num?)?.toInt(),
       paymentIntent: json['payment_intent'] as String?,
-      reason: json['reason'] as String?,
+      reason: $enumDecodeNullable(_$RefundReasonEnumMap, json['reason']),
     );
 
 Map<String, dynamic> _$CreateRefundRequestToJson(
@@ -2373,7 +2373,13 @@ Map<String, dynamic> _$CreateRefundRequestToJson(
   'charge': ?instance.charge,
   'amount': ?instance.amount,
   'payment_intent': ?instance.paymentIntent,
-  'reason': ?instance.reason,
+  'reason': ?_$RefundReasonEnumMap[instance.reason],
+};
+
+const _$RefundReasonEnumMap = {
+  RefundReason.duplicate: 'duplicate',
+  RefundReason.fraudulent: 'fraudulent',
+  RefundReason.requestedByCustomer: 'requested_by_customer',
 };
 
 ListInvoicesRequest _$ListInvoicesRequestFromJson(Map<String, dynamic> json) =>
