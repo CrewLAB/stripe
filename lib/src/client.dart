@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:stripe/src/exceptions.dart';
 
 const _defaultUrl = 'https://api.stripe.com/v1/';
-const _defaultVersion = '2020-08-27';
+const _defaultVersion = '2025-11-17.clover';
 
 /// The http client implementation that will make requests to the stripe API.
 ///
