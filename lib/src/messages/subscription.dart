@@ -42,15 +42,6 @@ class Subscription extends Message {
   /// ID of the customer who owns the subscription.
   final String customer;
 
-  /// Start of the current period that the subscription has been invoiced for.
-  @TimestampConverter()
-  final DateTime currentPeriodStart;
-
-  /// End of the current period that the subscription has been invoiced for. At
-  /// the end of this period, a new invoice will be created.
-  @TimestampConverter()
-  final DateTime currentPeriodEnd;
-
   /// Either charge_automatically, or send_invoice. When charging automatically,
   /// Stripe will attempt to pay this subscription at the end of the cycle using
   /// the default source attached to the customer. When sending an invoice,
@@ -108,8 +99,6 @@ class Subscription extends Message {
     required this.customer,
     required this.status,
     required this.items,
-    required this.currentPeriodStart,
-    required this.currentPeriodEnd,
     required this.cancelAtPeriodEnd,
     this.collectionMethod,
     this.metadata,

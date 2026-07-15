@@ -43,7 +43,8 @@ void main() {
         'card',
         'afterpay_clearpay',
       ]);
-      expect(request.toJson()['subscription_data'], {'trial_period_days': 3});
+      expect(request.toJson()['subscription_data'],
+          {'trial_period_days': 3, 'application_fee_percent': 0.0});
 
       client.dio.interceptors.add(
         InterceptorsWrapper(

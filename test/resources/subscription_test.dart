@@ -18,25 +18,20 @@ void main() {
   });
   group('SubscriptionResource', () {
     test('properly decodes all values', () async {
-      final request = ListSubscriptionsRequest(
-        customer: 'foobar',
-        status: SubscriptionStatus.all,
-      );
+      final request = ListSubscriptionsRequest(customer: 'foobar', status: SubscriptionStatus.all);
 
-      client.dio.interceptors.add(InterceptorsWrapper(
-        onRequest: (options, handler) {
-          expect(options.method, 'GET');
-          expect(options.data, null);
-          expect(options.queryParameters, request.toJson());
-          handler.resolve(
-            Response(
-              requestOptions: options,
-              data: jsonDecode(listSubscriptionsResponse),
-              statusCode: HttpStatus.ok,
-            ),
-          );
-        },
-      ));
+      client.dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            expect(options.method, 'GET');
+            expect(options.data, null);
+            expect(options.queryParameters, request.toJson());
+            handler.resolve(
+              Response(requestOptions: options, data: jsonDecode(listSubscriptionsResponse), statusCode: HttpStatus.ok),
+            );
+          },
+        ),
+      );
 
       final response = await subscriptionResource.list(request);
 
@@ -51,6 +46,8 @@ void main() {
       expect(subscriptionItem.id, 'si_JBfME9WN5gChmk');
       expect(subscriptionItem.price.id, 'price_1IZHZoCQQp28cFsCQPo3u1sL');
       expect(subscriptionItem.price.active, isTrue);
+      expect(subscriptionItem.currentPeriodStart.toUtc(), DateTime.parse('2021-03-26 15:56:32Z'));
+      expect(subscriptionItem.currentPeriodEnd.toUtc(), DateTime.parse('2021-04-26 15:56:32Z'));
     });
   });
 }
@@ -72,8 +69,6 @@ const listSubscriptionsResponse = r'''
       "canceled_at": 1616774263,
       "collection_method": "charge_automatically",
       "created": 1616774192,
-      "current_period_end": 1619452592,
-      "current_period_start": 1616774192,
       "customer": "cus_JBeXhlmdO7fAWj",
       "days_until_due": null,
       "default_payment_method": null,
@@ -89,6 +84,8 @@ const listSubscriptionsResponse = r'''
             "object": "subscription_item",
             "billing_thresholds": null,
             "created": 1616774193,
+            "current_period_start": 1616774192,
+            "current_period_end": 1619452592,
             "metadata": {},
             "price": {
               "id": "price_1IZHZoCQQp28cFsCQPo3u1sL",

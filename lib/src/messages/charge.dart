@@ -7,15 +7,15 @@ enum _ChargeObject { charge }
 class Charge extends Message {
   final _ChargeObject object;
   final String id;
-  final String balanceTransaction;
-  final PaymentMethodDetails paymentMethodDetails;
+  final String? balanceTransaction;
+  final PaymentMethodDetails? paymentMethodDetails;
   final bool livemode;
 
   Charge({
     required this.object,
     required this.id,
-    required this.balanceTransaction,
-    required this.paymentMethodDetails,
+    this.balanceTransaction,
+    this.paymentMethodDetails,
     required this.livemode,
   });
 

@@ -72,18 +72,20 @@ Map<String, dynamic> _$FeeDetailsToJson(FeeDetails instance) =>
 Charge _$ChargeFromJson(Map<String, dynamic> json) => Charge(
   object: $enumDecode(_$_ChargeObjectEnumMap, json['object']),
   id: json['id'] as String,
-  balanceTransaction: json['balance_transaction'] as String,
-  paymentMethodDetails: PaymentMethodDetails.fromJson(
-    json['payment_method_details'] as Map<String, dynamic>,
-  ),
+  balanceTransaction: json['balance_transaction'] as String?,
+  paymentMethodDetails: json['payment_method_details'] == null
+      ? null
+      : PaymentMethodDetails.fromJson(
+          json['payment_method_details'] as Map<String, dynamic>,
+        ),
   livemode: json['livemode'] as bool,
 );
 
 Map<String, dynamic> _$ChargeToJson(Charge instance) => <String, dynamic>{
   'object': _$_ChargeObjectEnumMap[instance.object]!,
   'id': instance.id,
-  'balance_transaction': instance.balanceTransaction,
-  'payment_method_details': instance.paymentMethodDetails.toJson(),
+  'balance_transaction': ?instance.balanceTransaction,
+  'payment_method_details': ?instance.paymentMethodDetails?.toJson(),
   'livemode': instance.livemode,
 };
 
@@ -2809,12 +2811,6 @@ Subscription _$SubscriptionFromJson(Map<String, dynamic> json) => Subscription(
     json['items'] as Map<String, dynamic>,
     (value) => SubscriptionItem.fromJson(value as Map<String, dynamic>),
   ),
-  currentPeriodStart: const TimestampConverter().fromJson(
-    (json['current_period_start'] as num).toInt(),
-  ),
-  currentPeriodEnd: const TimestampConverter().fromJson(
-    (json['current_period_end'] as num).toInt(),
-  ),
   cancelAtPeriodEnd: json['cancel_at_period_end'] as bool,
   collectionMethod: $enumDecodeNullable(
     _$SubscriptionCollectionMethodEnumMap,
@@ -2830,12 +2826,6 @@ Map<String, dynamic> _$SubscriptionToJson(Subscription instance) =>
       'id': instance.id,
       'created': instance.created,
       'customer': instance.customer,
-      'current_period_start': const TimestampConverter().toJson(
-        instance.currentPeriodStart,
-      ),
-      'current_period_end': const TimestampConverter().toJson(
-        instance.currentPeriodEnd,
-      ),
       'collection_method':
           ?_$SubscriptionCollectionMethodEnumMap[instance.collectionMethod],
       'status': _$SubscriptionStatusEnumMap[instance.status]!,
@@ -2860,6 +2850,13 @@ SubscriptionItem _$SubscriptionItemFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       price: Price.fromJson(json['price'] as Map<String, dynamic>),
       subscription: json['subscription'] as String,
+      currentPeriodStart: const TimestampConverter().fromJson(
+        (json['current_period_start'] as num).toInt(),
+      ),
+      currentPeriodEnd: const TimestampConverter().fromJson(
+        (json['current_period_end'] as num).toInt(),
+      ),
+      quantity: (json['quantity'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$SubscriptionItemToJson(SubscriptionItem instance) =>
@@ -2868,6 +2865,13 @@ Map<String, dynamic> _$SubscriptionItemToJson(SubscriptionItem instance) =>
       'id': instance.id,
       'price': instance.price.toJson(),
       'subscription': instance.subscription,
+      'current_period_start': const TimestampConverter().toJson(
+        instance.currentPeriodStart,
+      ),
+      'current_period_end': const TimestampConverter().toJson(
+        instance.currentPeriodEnd,
+      ),
+      'quantity': ?instance.quantity,
     };
 
 const _$_SubscriptionItemObjectEnumMap = {
